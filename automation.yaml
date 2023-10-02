@@ -57,7 +57,7 @@ action:
           color: black
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data','wm_temp_2') | string }}{{
+            {{ state_attr('sensor.weatherman_data_tag','wm_temp_2') | string }}{{
             state_attr('weather.home','temperature_unit') }}
           font: GothamRnd-Bold.ttf
           x: 223
@@ -75,7 +75,7 @@ action:
           color: black
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data','wm_temp_3') | string }}{{
+            {{ state_attr('sensor.weatherman_data_tag','wm_temp_3') | string }}{{
             state_attr('weather.home','temperature_unit') }}
           font: GothamRnd-Bold.ttf
           x: 272
