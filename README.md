@@ -17,3 +17,20 @@ Add font GothamRnd-Bold.ttf to /config/custom_components/open_epaper_link in Hom
 Add template sensor ha-configuration.yaml to your configuration file in Home Assistant.
 
 Add contents of automation.yaml to a new automation in Home Assistant (Choose Edit in Yaml from top right three dots in a new automation). The automation is using a time template of every 20 minutes - adjust according to taste!
+
+There is a battery percentage for a tag in the attributes of the "weatherman" sensor (battery_strength_0000028329e608ff) for one of my tags, but this is no longer used - as the tags have a built in low battery sensor icon. You can remove this code in the weatherman template sensor if you wish. Or if you want a more dynamic battery icon - disable the low battery icon in the tag using your OEPL Access Point tag config command, and add in the following code to the automation:
+
+```
+- type: icon
+          value: "{{ state_attr('sensor.weatherman_data_tag','battery_strength_0000028329e608ff') | string }}"
+          x: 0
+          y: 0
+          size: 16
+          color: >
+              {% if state_attr('sensor.weatherman_data_tag','battery_strength_0000028329e608ff') == battery-low or state_attr('sensor.weatherman_data_tag','battery_strength_0000028329e608ff') == battery-unknown %}
+                red
+              {% else %}
+                black
+              {% endif %}
+```
+
