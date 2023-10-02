@@ -1,6 +1,8 @@
 # OpenEPaperLink-HA-Weatherman
 Wetherman EPaper display using OpenEPaperLink and the HA Integration
 
+![Epaper Tag using Weatherman data](/20230925_143005.jpg?raw=true "Example")
+
 Home Assistant and a working [OpenEpaper](https://openepaperlink.de/)https://openepaperlink.de/ setup, with HA Integration - https://github.com/jonasniesner/open_epaper_link_homeassistant
 
 Sensors/Integrations Needed:
