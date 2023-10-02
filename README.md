@@ -1,5 +1,5 @@
 # OpenEPaperLink-HA-Weatherman
-Wetherman EPaper display using OpenEPaperLink and the HA Integration
+Wetherman EPaper display using OpenEPaperLink and the HA Integration. Shows current weather state and temperature, the next four hour forecast, and the next four day forecast. Also shows Moon phase.
 
 ![Epaper Tag using Weatherman data](/20230925_143005.jpg?raw=true "Example")
 
