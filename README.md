@@ -27,10 +27,10 @@ There is a battery percentage for a tag in the attributes of the "weatherman" se
           y: 0
           size: 16
           color: >
-              {% if state_attr('sensor.weatherman_data_tag','battery_strength_0000028329e608ff') == battery-low or state_attr('sensor.weatherman_data_tag','battery_strength_0000028329e608ff') == battery-unknown %}
-                red
-              {% else %}
-                black
-              {% endif %}
+            {% if state_attr('sensor.weatherman_data_tag','battery_strength_0000028329e608ff') == 'battery-low' or state_attr('sensor.weatherman_data_tag','battery_strength_0000028329e608ff') == 'battery-unknown' %}
+              red
+            {% else %}
+              black
+            {% endif %}
 ```
 
