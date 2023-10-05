@@ -15,9 +15,9 @@ action:
       payload:
         - type: icon
           value: "{{ state_attr('sensor.weatherman_data_tag','moon_phase') | string }}"
-          x: 88
-          "y": 1
-          size: 16
+          x: 85
+          y: 1
+          size: 18
           color: black
         - type: text
           value: >-
