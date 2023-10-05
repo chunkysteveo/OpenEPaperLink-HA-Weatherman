@@ -7,10 +7,12 @@ Home Assistant and a working [OpenEpaper](https://openepaperlink.de/)https://ope
 
 Sensors/Integrations Needed:
 
-https://github.com/jonasniesner/open_epaper_link_homeassistant (Install via HACS)
-https://www.home-assistant.io/integrations/met - Weather info
-https://www.home-assistant.io/integrations/moon - Moon phases
-https://www.home-assistant.io/integrations/sun - Sun sensor, help with weather icons if it's clear at night (so you don't see a Sun at night!)
+*https://github.com/jonasniesner/open_epaper_link_homeassistant (Install via HACS)
+*https://www.home-assistant.io/integrations/met - Weather info
+*https://www.home-assistant.io/integrations/moon - Moon phases
+*https://www.home-assistant.io/integrations/sun - Sun sensor, help with weather icons if it's clear at night (so you don't see a Sun at night!)
+
+When you have installed the Weather integration, go to it via Settings, Integrations, and Enable the hourly forecast (it's disabled by default).
 
 Add font GothamRnd-Bold.ttf to /config/custom_components/open_epaper_link in Home Assistant.
 
