@@ -12,7 +12,8 @@ Sensors/Integrations Needed:
 * https://www.home-assistant.io/integrations/moon - Moon phases
 * https://www.home-assistant.io/integrations/sun - Sun sensor, help with weather icons if it's clear at night (so you don't see a Sun at night!)
 
-When you have installed the Weather integration, go to it via Settings, Integrations, and Enable the hourly forecast (it's disabled by default).
+~~When you have installed the Weather integration, go to it via Settings, Integrations, and Enable the hourly forecast (it's disabled by default).~~
+This is no longer available in new installs of HA - the new tempalte sensor makes use of the "Get Forecast" service call to get hourly forecast updates.
 
 Add font GothamRnd-Bold.ttf to /config/custom_components/open_epaper_link in Home Assistant.
 
