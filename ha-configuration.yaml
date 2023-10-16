@@ -32,7 +32,7 @@ template:
             {% set cond_moon = state_attr('sensor.moon_phase', 'icon') %}
             {{ cond_moon.split('mdi:')[1] }}
           wm_cond_now: >
-            {% set cond_now = states('weather.home_hourly') %}
+            {% set cond_now = states('weather.home') %}
             {% if cond_now == 'partlycloudy' %}{% set cond_now = 'partly-cloudy' %}{% endif %}
             {% if states('sun.sun') == 'below_horizon' %}
                 {% if cond_now == 'sunny' %} night {% elif cond_now == 'partly-cloudy' %} night-partly-cloudy {% else %} {{ cond_now }} {% endif %}
