@@ -2,7 +2,7 @@
 template:
   - trigger:
       platform: time_pattern
-      minutes: "/5"
+      minutes: "/15"
     action:
       - service: weather.get_forecast
         target:
@@ -11,7 +11,7 @@ template:
           type: hourly
         response_variable: weather_home_hourly
     sensor:
-      - name: Weatherman Data Tag
+      - name: Weatherman Data Tag Forecast
         state: "OK"
         attributes:
           battery_strength_0000028329e608ff: >
@@ -115,7 +115,7 @@ template:
           wm_temp_4_low: >
             {{ state_attr('weather.home', 'forecast')[0].templow | round }}
           wm_time_4: >
-            {{ as_timestamp(state_attr('weather.home', 'forecast')[0].datetime) | timestamp_custom('%a') }}
+            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[0].datetime) | timestamp_custom('%w') | int]) }}
           wm_cond_5: >
             {% set cond5 = state_attr('weather.home', 'forecast')[1].condition %}
             {% if cond5 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond5 }} {% endif %}
@@ -124,7 +124,7 @@ template:
           wm_temp_5_low: >
             {{ state_attr('weather.home', 'forecast')[1].templow | round }}
           wm_time_5: >
-            {{ as_timestamp(state_attr('weather.home', 'forecast')[1].datetime) | timestamp_custom('%a') }}
+            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[1].datetime) | timestamp_custom('%w') | int]) }}
           wm_cond_6: >
             {% set cond6 = state_attr('weather.home', 'forecast')[2].condition %}
             {% if cond6 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond6 }} {% endif %}
@@ -133,7 +133,7 @@ template:
           wm_temp_6_low: >
             {{ state_attr('weather.home', 'forecast')[2].templow | round }}
           wm_time_6: >
-            {{ as_timestamp(state_attr('weather.home', 'forecast')[2].datetime) | timestamp_custom('%a') }}    
+            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[2].datetime) | timestamp_custom('%w') | int]) }}  
           wm_cond_7: >
             {% set cond7 = state_attr('weather.home', 'forecast')[3].condition %}
             {% if cond7 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond7 }} {% endif %}
@@ -142,4 +142,4 @@ template:
           wm_temp_7_low: >
             {{ state_attr('weather.home', 'forecast')[3].templow | round }}    
           wm_time_7: >
-            {{ as_timestamp(state_attr('weather.home', 'forecast')[3].datetime) | timestamp_custom('%a') }}         
+            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[3].datetime) | timestamp_custom('%w') | int]) }}       
