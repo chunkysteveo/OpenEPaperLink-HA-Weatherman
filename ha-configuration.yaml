@@ -11,7 +11,7 @@ template:
           type: hourly
         response_variable: weather_home_hourly
     sensor:
-      - name: Weatherman Data Tag Forecast
+      - name: Weatherman Data Tag
         state: "OK"
         attributes:
           battery_strength_0000028329e608ff: >
