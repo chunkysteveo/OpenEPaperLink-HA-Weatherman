@@ -55,7 +55,7 @@ template:
           wm_temp_0: >
             {{ weather_home_hourly.forecast[0].temperature | round }}
           wm_time_0: >
-            {{ as_timestamp(weather_home_hourly.forecast[0].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly.forecast[0].datetime) | timestamp_custom('%p') }}    
+            {{ as_timestamp(weather_home_hourly.forecast[0].datetime) | timestamp_custom('%I %p') }}    
           wm_cond_1: >
             {% set cond1 = weather_home_hourly.forecast[1].condition %}
             {% if cond1 == 'partlycloudy' %}{% set cond1 = 'partly-cloudy' %}{% endif %}
@@ -72,7 +72,7 @@ template:
           wm_temp_1: >
             {{ weather_home_hourly.forecast[1].temperature | round }}
           wm_time_1: >
-            {{ as_timestamp(weather_home_hourly.forecast[1].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly.forecast[1].datetime) | timestamp_custom('%p') }}
+            {{ as_timestamp(weather_home_hourly.forecast[1].datetime) | timestamp_custom('%I %p') }}
           wm_cond_2: >
             {% set cond2 = weather_home_hourly.forecast[2].condition %}
             {% if cond2 == 'partlycloudy' %}{% set cond2 = 'partly-cloudy' %}{% endif %}
@@ -89,7 +89,7 @@ template:
           wm_temp_2: >
             {{ weather_home_hourly.forecast[2].temperature | round }}
           wm_time_2: >
-            {{ as_timestamp(weather_home_hourly.forecast[2].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly.forecast[2].datetime) | timestamp_custom('%p') }}
+            {{ as_timestamp(weather_home_hourly.forecast[2].datetime) | timestamp_custom('%I %p') }}
           wm_cond_3: >
             {% set cond3 = weather_home_hourly.forecast[3].condition %}
             {% if cond3 == 'partlycloudy' %}{% set cond3 = 'partly-cloudy' %}{% endif %}
@@ -106,7 +106,7 @@ template:
           wm_temp_3: >
             {{ weather_home_hourly.forecast[3].temperature | round }}
           wm_time_3: >
-            {{ as_timestamp(weather_home_hourly.forecast[3].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly.forecast[3].datetime) | timestamp_custom('%p') }}
+            {{ as_timestamp(weather_home_hourly.forecast[3].datetime) | timestamp_custom('%I %p') }}
           wm_cond_4: >
             {% set cond4 = state_attr('weather.home', 'forecast')[0].condition %}
             {% if cond4 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond4 }} {% endif %}
