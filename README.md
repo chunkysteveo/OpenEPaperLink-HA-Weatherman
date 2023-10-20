@@ -23,8 +23,8 @@ Add contents of automation.yaml to a new automation in Home Assistant (Choose Ed
 
 Time format for the hourly conditions can be formatted using the python function `timestamp_custom()` for, e.g. 12h time - 2 PM, or e.g. 24h time - 14:
 
-`{{ as_timestamp(weather_home_hourly.forecast[0].datetime) | timestamp_custom('%I %p') }}` = 2 PM
-
+`{{ as_timestamp(weather_home_hourly.forecast[0].datetime) | timestamp_custom('%I %p') }}` = 02 PM
+`{{ as_timestamp(weather_home_hourly.forecast[0].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly.forecast[0].datetime) | timestamp_custom('%p') }}` = 2 PM
 `{{ as_timestamp(weather_home_hourly.forecast[0].datetime) | timestamp_custom('%H') }}` = 14
 
 There is a battery percentage for a tag in the attributes of the "weatherman" sensor (battery_strength_0000028329e608ff) for one of my tags, but this is no longer used - as the tags have a built in low battery sensor icon. You can remove this code in the weatherman template sensor if you wish. Or if you want a more dynamic battery icon - disable the low battery icon in the tag using your OEPL Access Point tag config command, and add in the following code to the automation:
