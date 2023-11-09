@@ -34,6 +34,7 @@ template:
           wm_cond_now: >
             {% set cond_now = states('weather.home') %}
             {% if cond_now == 'partlycloudy' %}{% set cond_now = 'partly-cloudy' %}{% endif %}
+            {% if cond_now == 'clear-night' %}{% set cond_now = 'night' %}{% endif %}
             {% if states('sun.sun') == 'below_horizon' %}
                 {% if cond_now == 'sunny' %} night {% elif cond_now == 'partly-cloudy' %} night-partly-cloudy {% else %} {{ cond_now }} {% endif %}
             {% else %}
@@ -42,6 +43,7 @@ template:
           wm_cond_0: >
             {% set cond0 = weather_home_hourly.forecast[0].condition %}
             {% if cond0 == 'partlycloudy' %}{% set cond0 = 'partly-cloudy' %}{% endif %}
+            {% if cond0 == 'clear-night' %}{% set cond0 = 'night' %}{% endif %}
             {% set next_setting = as_timestamp(state_attr('sun.sun', 'next_setting')) %}
             {% set next_rising = as_timestamp(state_attr('sun.sun', 'next_rising')) %}
             {% set cond0_time = as_timestamp(weather_home_hourly.forecast[0].datetime) %}
@@ -59,6 +61,7 @@ template:
           wm_cond_1: >
             {% set cond1 = weather_home_hourly.forecast[1].condition %}
             {% if cond1 == 'partlycloudy' %}{% set cond1 = 'partly-cloudy' %}{% endif %}
+            {% if cond1 == 'clear-night' %}{% set cond1 = 'night' %}{% endif %}
             {% set next_setting = as_timestamp(state_attr('sun.sun', 'next_setting')) %}
             {% set next_rising = as_timestamp(state_attr('sun.sun', 'next_rising')) %}
             {% set cond1_time = as_timestamp(weather_home_hourly.forecast[1].datetime) %}
@@ -76,6 +79,7 @@ template:
           wm_cond_2: >
             {% set cond2 = weather_home_hourly.forecast[2].condition %}
             {% if cond2 == 'partlycloudy' %}{% set cond2 = 'partly-cloudy' %}{% endif %}
+            {% if cond2 == 'clear-night' %}{% set cond2 = 'night' %}{% endif %}
             {% set next_setting = as_timestamp(state_attr('sun.sun', 'next_setting')) %}
             {% set next_rising = as_timestamp(state_attr('sun.sun', 'next_rising')) %}
             {% set cond2_time = as_timestamp(weather_home_hourly.forecast[2].datetime) %}
@@ -93,6 +97,7 @@ template:
           wm_cond_3: >
             {% set cond3 = weather_home_hourly.forecast[3].condition %}
             {% if cond3 == 'partlycloudy' %}{% set cond3 = 'partly-cloudy' %}{% endif %}
+            {% if cond3 == 'clear-night' %}{% set cond3 = 'night' %}{% endif %}
             {% set next_setting = as_timestamp(state_attr('sun.sun', 'next_setting')) %}
             {% set next_rising = as_timestamp(state_attr('sun.sun', 'next_rising')) %}
             {% set cond3_time = as_timestamp(weather_home_hourly.forecast[3].datetime) %}
