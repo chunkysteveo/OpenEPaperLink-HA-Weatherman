@@ -23,7 +23,7 @@ action:
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_temp_0') | string
             }}{{ state_attr('weather.home','temperature_unit') }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 125
           "y": 46
           size: 18
@@ -41,7 +41,7 @@ action:
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_temp_1') | string
             }}{{ state_attr('weather.home','temperature_unit') }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 174
           "y": 46
           size: 18
@@ -59,7 +59,7 @@ action:
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_temp_2') | string }}{{
             state_attr('weather.home','temperature_unit') }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 223
           "y": 46
           size: 18
@@ -77,7 +77,7 @@ action:
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_temp_3') | string }}{{
             state_attr('weather.home','temperature_unit') }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 272
           "y": 46
           size: 18
@@ -96,7 +96,7 @@ action:
             {{ state_attr('sensor.weatherman_data_tag','wm_temp_4') | string
             }}/{{ state_attr('sensor.weatherman_data_tag','wm_temp_4_low') |
             string }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 125
           "y": 112
           size: 14
@@ -115,7 +115,7 @@ action:
             {{ state_attr('sensor.weatherman_data_tag','wm_temp_5') | string
             }}/{{ state_attr('sensor.weatherman_data_tag','wm_temp_5_low') |
             string }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 174
           "y": 112
           size: 14
@@ -134,7 +134,7 @@ action:
             {{ state_attr('sensor.weatherman_data_tag','wm_temp_6') | string
             }}/{{ state_attr('sensor.weatherman_data_tag','wm_temp_6_low') |
             string }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 223
           "y": 112
           size: 14
@@ -153,7 +153,7 @@ action:
             {{ state_attr('sensor.weatherman_data_tag','wm_temp_7') | string
             }}/{{ state_attr('sensor.weatherman_data_tag','wm_temp_7_low') |
             string }}          
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 272
           "y": 112
           size: 14
@@ -171,7 +171,7 @@ action:
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_time_0') | string |
             upper }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 125
           "y": 2
           size: 12
@@ -181,7 +181,7 @@ action:
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_time_1') | string |
             upper }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 174
           "y": 2
           size: 12
@@ -191,7 +191,7 @@ action:
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_time_2') | string |
             upper }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 223
           "y": 2
           size: 12
@@ -201,7 +201,7 @@ action:
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_time_3') | string |
             upper }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 272
           "y": 2
           size: 12
@@ -211,7 +211,7 @@ action:
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_time_4') | string |
             upper }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 125
           "y": 67
           size: 12
@@ -221,7 +221,7 @@ action:
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_time_5') | string |
             upper }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 174
           "y": 67
           size: 12
@@ -231,7 +231,7 @@ action:
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_time_6') | string |
             upper }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 223
           "y": 67
           size: 12
@@ -241,7 +241,7 @@ action:
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_time_7') | string |
             upper }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 272
           "y": 67
           size: 12
@@ -258,7 +258,7 @@ action:
           value: |-
             {{ state_attr('weather.home','temperature') | int(0) }}{{
              state_attr('weather.home','temperature_unit') }}
-          font: GothamRnd-Bold.ttf
+          font: ../../media/GothamRnd-Bold.ttf
           x: 52
           "y": 94
           size: 38
