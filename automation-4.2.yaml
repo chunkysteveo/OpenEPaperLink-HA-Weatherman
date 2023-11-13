@@ -82,7 +82,7 @@ action:
           value: >-
             {{ "%s" %
             (["arrow-down","arrow-bottom-left","arrow-left","arrow-top-left","arrow-up","arrow-top-right","arrow-right",
-            "arrow-bottom-right"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_0')/45)
+            "arrow-bottom-right","arrow-down"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_0')/45)
             | round ]) }}
           x: 140
           "y": 122
@@ -146,7 +146,7 @@ action:
           value: >-
             {{ "%s" %
             (["arrow-down","arrow-bottom-left","arrow-left","arrow-top-left","arrow-up","arrow-top-right","arrow-right",
-            "arrow-bottom-right"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_1')/45)
+            "arrow-bottom-right","arrow-down"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_1')/45)
             | round ]) }}
           x: 216
           "y": 122
@@ -210,7 +210,7 @@ action:
           value: >-
             {{ "%s" %
             (["arrow-down","arrow-bottom-left","arrow-left","arrow-top-left","arrow-up","arrow-top-right","arrow-right",
-            "arrow-bottom-right"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_2')/45)
+            "arrow-bottom-right","arrow-down"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_2')/45)
             | round ]) }}
           x: 292
           "y": 122
@@ -274,7 +274,7 @@ action:
           value: >-
             {{ "%s" %
             (["arrow-down","arrow-bottom-left","arrow-left","arrow-top-left","arrow-up","arrow-top-right","arrow-right",
-            "arrow-bottom-right"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_3')/45)
+            "arrow-bottom-right","arrow-down"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_3')/45)
             | round ]) }}
           x: 368
           "y": 122
@@ -357,7 +357,7 @@ action:
           value: >-
             {{ "%s" %
             (["arrow-down","arrow-bottom-left","arrow-left","arrow-top-left","arrow-up","arrow-top-right","arrow-right",
-            "arrow-bottom-right"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_4')/45)
+            "arrow-bottom-right","arrow-down"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_4')/45)
             | round ]) }}
           x: 48
           "y": 277
@@ -440,7 +440,7 @@ action:
           value: >-
             {{ "%s" %
             (["arrow-down","arrow-bottom-left","arrow-left","arrow-top-left","arrow-up","arrow-top-right","arrow-right",
-            "arrow-bottom-right"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_5')/45)
+            "arrow-bottom-right","arrow-down"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_5')/45)
             | round ]) }}
           x: 152
           "y": 277
@@ -523,7 +523,7 @@ action:
           value: >-
             {{ "%s" %
             (["arrow-down","arrow-bottom-left","arrow-left","arrow-top-left","arrow-up","arrow-top-right","arrow-right",
-            "arrow-bottom-right"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_6')/45)
+            "arrow-bottom-right","arrow-down"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_6')/45)
             | round ]) }}
           x: 254
           "y": 277
@@ -606,7 +606,7 @@ action:
           value: >-
             {{ "%s" %
             (["arrow-down","arrow-bottom-left","arrow-left","arrow-top-left","arrow-up","arrow-top-right","arrow-right",
-            "arrow-bottom-right"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_7')/45)
+            "arrow-bottom-right","arrow-down"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_7')/45)
             | round ]) }}
           x: 356
           "y": 277
