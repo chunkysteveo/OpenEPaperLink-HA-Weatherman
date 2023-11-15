@@ -12,7 +12,7 @@ template:
         response_variable: weather_home_hourly
     sensor:
       - name: Weatherman Data Tag
-        state: "OK"
+        state: "{{ now().isoformat() }}"
         attributes:
           battery_strength_0000028329e608ff: >
             {% if has_value('sensor.0000028329e608ff_battery') %}
