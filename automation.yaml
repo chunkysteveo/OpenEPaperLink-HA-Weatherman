@@ -256,7 +256,7 @@ action:
           y_end: 64
         - type: text
           value: |-
-            {{ state_attr('weather.home','temperature') | int(0) }}{{
+            {{ state_attr('weather.home','temperature') | round | int(0) }}{{
              state_attr('weather.home','temperature_unit') }}
           font: GothamRnd-Bold.ttf
           x: 52
