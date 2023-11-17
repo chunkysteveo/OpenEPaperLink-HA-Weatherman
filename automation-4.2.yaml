@@ -49,7 +49,7 @@ action:
           "y": 25
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_0') in severe_weather else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_0') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '' if
@@ -109,7 +109,7 @@ action:
           "y": 25
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_1') in severe_weather else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_1') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '2 mm' if
@@ -169,7 +169,7 @@ action:
           "y": 25
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_2') in severe_weather else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_2') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '' if
@@ -229,7 +229,7 @@ action:
           "y": 25
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_3') in severe_weather else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_3') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '' if
@@ -308,7 +308,7 @@ action:
           "y": 175
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_4') in severe_weather else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_4') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '' if
@@ -387,7 +387,7 @@ action:
           "y": 175
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_5') in severe_weather else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_5') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '1 mm' if
@@ -466,7 +466,7 @@ action:
           "y": 175
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_6') in severe_weather else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_6') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '' if
@@ -545,7 +545,7 @@ action:
           "y": 175
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_7') in severe_weather else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_7') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '' if
@@ -694,7 +694,7 @@ action:
           "y": 2
           size: 92
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_now') in severe_weather else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_now') in severe_weather else 'black' }}
     target:
       entity_id:
         - open_epaper_link.00000123456789
