@@ -7,6 +7,11 @@ condition:
   - condition: time
     after: "06:00:00"
     before: "23:00:00"
+variables:
+  severe_weather: ['hail','lightning','exceptional']
+  severe_temp_low: 0
+  severe_wind_speed: 10
+  severe_precipitation: 10
 action:
   - service: open_epaper_link.drawcustom
     data:
@@ -28,7 +33,7 @@ action:
           size: 24
           color: >-
             {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_0') |
-            round > 0 else 'red' }}
+            round > severe_temp_low else 'red' }}
           anchor: mt
         - type: icon
           value: clock-outline
@@ -44,11 +49,7 @@ action:
           "y": 25
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_0') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_0') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_0') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_0') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '' if
@@ -76,7 +77,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_wind_speed_0') | int <
-            10 else 'red' }}
+            severe_wind_speed else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -98,7 +99,7 @@ action:
           size: 24
           color: >-
             {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_1') |
-            int > 0 else 'red' }}
+            int > severe_temp_low else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -108,11 +109,7 @@ action:
           "y": 25
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_1') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_1') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_1') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_1') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '2 mm' if
@@ -140,7 +137,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_wind_speed_1') | int <
-            10 else 'red' }}
+            severe_wind_speed else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -162,7 +159,7 @@ action:
           size: 24
           color: >-
             {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_2') |
-            int > 0 else 'red' }}
+            int > severe_temp_low else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -172,11 +169,7 @@ action:
           "y": 25
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_2') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_2') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_2') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_2') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '' if
@@ -204,7 +197,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_wind_speed_2') | int <
-            10 else 'red' }}
+            severe_wind_speed else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -226,7 +219,7 @@ action:
           size: 24
           color: >-
             {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_3') |
-            int > 0 else 'red' }}
+            int > severe_temp_low else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -236,11 +229,7 @@ action:
           "y": 25
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_3') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_3') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_3') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_3') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '' if
@@ -268,7 +257,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_wind_speed_3') | int <
-            10 else 'red' }}
+            severe_wind_speed else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -290,7 +279,7 @@ action:
           size: 20
           color: >-
             {{'black' if
-            state_attr('sensor.weatherman_data_tag','wm_temp_4_low') | int > 0
+            state_attr('sensor.weatherman_data_tag','wm_temp_4_low') | int > severe_temp_low
             else 'red' }}
           anchor: rt
         - type: text
@@ -309,7 +298,7 @@ action:
           size: 20
           color: >-
             {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_4') |
-            int > 0 else 'red' }}
+            int > severe_temp_low else 'red' }}
           anchor: lt
         - type: icon
           value: >-
@@ -319,11 +308,7 @@ action:
           "y": 175
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_4') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_4') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_4') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_4') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '' if
@@ -338,7 +323,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_4') | int
-            < 10 else 'red' }}
+            < severe_precipitation else 'red' }}
           anchor: mt
         - type: text
           value: >-
@@ -351,7 +336,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_wind_speed_4') | int <
-            10 else 'red' }}
+            severe_precipitation else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -373,7 +358,7 @@ action:
           size: 20
           color: >-
             {{'black' if
-            state_attr('sensor.weatherman_data_tag','wm_temp_5_low') | int > 0
+            state_attr('sensor.weatherman_data_tag','wm_temp_5_low') | int > severe_temp_low
             else 'red' }}
           anchor: rt
         - type: text
@@ -392,7 +377,7 @@ action:
           size: 20
           color: >-
             {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_5') |
-            int > 0 else 'red' }}
+            int > severe_temp_low else 'red' }}
           anchor: lt
         - type: icon
           value: >-
@@ -402,11 +387,7 @@ action:
           "y": 175
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_5') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_5') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_5') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_5') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '1 mm' if
@@ -421,7 +402,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_5') | int
-            < 10 else 'red' }}
+            < severe_precipitation else 'red' }}
           anchor: mt
         - type: text
           value: >-
@@ -434,7 +415,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_wind_speed_5') | int <
-            10 else 'red' }}
+            severe_precipitation else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -456,7 +437,7 @@ action:
           size: 20
           color: >-
             {{'black' if
-            state_attr('sensor.weatherman_data_tag','wm_temp_6_low') | int > 0
+            state_attr('sensor.weatherman_data_tag','wm_temp_6_low') | int > severe_temp_low
             else 'red' }}
           anchor: rt
         - type: text
@@ -475,7 +456,7 @@ action:
           size: 20
           color: >-
             {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_6') |
-            int > 0 else 'red' }}
+            int > severe_temp_low else 'red' }}
           anchor: lt
         - type: icon
           value: >-
@@ -485,11 +466,7 @@ action:
           "y": 175
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_6') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_6') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_6') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_6') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '' if
@@ -504,7 +481,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_6') | int
-            < 10 else 'red' }}
+            < severe_precipitation else 'red' }}
           anchor: mt
         - type: text
           value: >-
@@ -517,7 +494,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_wind_speed_6') | int <
-            10 else 'red' }}
+            severe_precipitation else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -539,7 +516,7 @@ action:
           size: 20
           color: >-
             {{'black' if
-            state_attr('sensor.weatherman_data_tag','wm_temp_7_low') | int > 0
+            state_attr('sensor.weatherman_data_tag','wm_temp_7_low') | int > severe_temp_low
             else 'red' }}
           anchor: rt
         - type: text
@@ -558,7 +535,7 @@ action:
           size: 20
           color: >-
             {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_7') |
-            int > 0 else 'red' }}
+            int > severe_temp_low else 'red' }}
           anchor: lt
         - type: icon
           value: >-
@@ -568,11 +545,7 @@ action:
           "y": 175
           size: 54
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_7') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_7') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_7') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_7') in severe_weather else 'black' }}
         - type: text
           value: >-
             {{ '' if
@@ -587,7 +560,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_7') | int
-            < 10 else 'red' }}
+            < severe_precipitation else 'red' }}
           anchor: mt
         - type: text
           value: >-
@@ -600,7 +573,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_wind_speed_7') | int <
-            10 else 'red' }}
+            severe_wind_speed else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -712,7 +685,7 @@ action:
           anchor: mt
           color: >-
             {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_0') |
-            round > 0 else 'red' }}
+            round > severe_temp_low else 'red' }}
         - type: icon
           value: >-
             weather-{{ state_attr('sensor.weatherman_data_tag','wm_cond_now') |
@@ -721,11 +694,7 @@ action:
           "y": 2
           size: 92
           color: >-
-            {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_now') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_now') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_now') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_now') in severe_weather else 'black' }}
     target:
       entity_id:
         - open_epaper_link.00000123456789
