@@ -7,6 +7,9 @@ condition:
   - condition: time
     after: "07:00:00"
     before: "22:00:00"
+variables:
+  severe_weather: ['fog','hail','lightning','lightning-rainy','pouring','snowy','snowy-rainy','windy','windy-variant','exceptional']
+  severe_temp_low: 3
 action:
   - service: open_epaper_link.drawcustom
     data:
@@ -15,128 +18,97 @@ action:
       payload:
         - type: icon
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','moon_phase') |
-            string }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','moon_phase') | string }}
           x: 85
           "y": 1
           size: 18
           color: black
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_0') |
-            string }}{{ state_attr('weather.home','temperature_unit') }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_temp_0') | string }}{{ state_attr('weather.home','temperature_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 125
           "y": 47
           size: 18
           color: >-
-            {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_0') > 0 else 'red' }}
+            {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_0') > severe_temp_low else 'red' }}
           anchor: mt
         - type: icon
           value: >-
             weather-{{
-            state_attr('sensor.weatherman_data_tag','wm_cond_0') |
-            string }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_cond_0') | string }}
           x: 108
           "y": 13
           size: 34
           color: >-
-            {{'red' if
-            state_attr('sensor.weatherman_data_tag','wm_cond_0') ==
-            'hail' or  'lightning' in 
-            state_attr('sensor.weatherman_data_tag','wm_cond_0') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_0') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_0') in severe_weather else 'black' }}
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_1') |
-            string }}{{ state_attr('weather.home','temperature_unit') }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_temp_1') | string }}{{ state_attr('weather.home','temperature_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 174
           "y": 47
           size: 18
           color: >-
-            {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_1') > 0 else 'red' }}
+            {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_1') > severe_temp_low else 'red' }}
           anchor: mt
         - type: icon
           value: >-
             weather-{{
-            state_attr('sensor.weatherman_data_tag','wm_cond_1') |
-            string }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_cond_1') | string }}
           x: 157
           "y": 13
           size: 34
           color: >-
-            {{'red' if
-            state_attr('sensor.weatherman_data_tag','wm_cond_1') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_1') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_1') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_1') in severe_weather else 'black' }}
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_2') |
-            string }}{{ state_attr('weather.home','temperature_unit') }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_temp_2') | string }}{{ state_attr('weather.home','temperature_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 223
           "y": 47
           size: 18
           color: >-
-            {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_2') > 0 else 'red' }}
+            {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_2') > severe_temp_low else 'red' }}
           anchor: mt
         - type: icon
           value: >-
             weather-{{
-            state_attr('sensor.weatherman_data_tag','wm_cond_2') |
-            string }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_cond_2') | string }}
           x: 206
           "y": 13
           size: 34
           color: >-
-            {{'red' if
-            state_attr('sensor.weatherman_data_tag','wm_cond_2') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_2') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_2') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_2') in severe_weather else 'black' }}
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_3') |
-            string }}{{ state_attr('weather.home','temperature_unit') }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_temp_3') | string }}{{ state_attr('weather.home','temperature_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 272
           "y": 47
           size: 18
           color: >-
-            {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_3') > 0 else 'red' }}
+            {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_3') > severe_temp_low else 'red' }}
           anchor: mt
         - type: icon
           value: >-
             weather-{{
-            state_attr('sensor.weatherman_data_tag','wm_cond_3') |
-            string }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_cond_3') | string }}
           x: 255
           "y": 13
           size: 34
           color: >-
-            {{'red' if
-            state_attr('sensor.weatherman_data_tag','wm_cond_3') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_3') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_3') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_3') in severe_weather else 'black' }}
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_4') |
-            string }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_temp_4') | string }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 122
           "y": 111
           size: 14
           color: >-
             {{'black' if
-            state_attr('sensor.weatherman_data_tag','wm_temp_4') > 0
-            else 'red' }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_temp_4') > severe_temp_low else 'red' }}
           anchor: rt
         - type: text
           value: /
@@ -148,43 +120,34 @@ action:
           anchor: mt
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_4_low')
-            | string }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_temp_4_low') | string }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 128
           "y": 118
           size: 14
           color: >-
             {{'black' if
-            state_attr('sensor.weatherman_data_tag','wm_temp_4_low') > 0 else 'red' }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_temp_4_low') > severe_temp_low else 'red' }}
           anchor: lt
         - type: icon
           value: >-
             weather-{{
-            state_attr('sensor.weatherman_data_tag','wm_cond_4') |
-            string }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_cond_4') | string }}
           x: 108
           "y": 78
           size: 34
           color: >-
-            {{'red' if
-            state_attr('sensor.weatherman_data_tag','wm_cond_4') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_4') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_4') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_4') in severe_weather else 'black' }}
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_5') |
-            string }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_temp_5') | string }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 171
           "y": 111
           size: 14
           color: >-
             {{'black' if
-            state_attr('sensor.weatherman_data_tag','wm_temp_5') > 0
-            else 'red' }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_temp_5') > severe_temp_low else 'red' }}
           anchor: rt
         - type: text
           value: /
@@ -196,43 +159,34 @@ action:
           anchor: mt
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_5_low')
-            | string }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_temp_5_low') | string }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 177
           "y": 118
           size: 14
           color: >-
             {{'black' if
-            state_attr('sensor.weatherman_data_tag','wm_temp_5_low') > 0 else 'red' }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_temp_5_low') > severe_temp_low else 'red' }}
           anchor: lt
         - type: icon
           value: >-
             weather-{{
-            state_attr('sensor.weatherman_data_tag','wm_cond_5') |
-            string }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_cond_5') | string }}
           x: 157
           "y": 78
           size: 34
           color: >-
-            {{'red' if
-            state_attr('sensor.weatherman_data_tag','wm_cond_5') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_5') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_5') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_5') in severe_weather else 'black' }}
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_6') |
-            string }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_temp_6') | string }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 220
           "y": 111
           size: 14
           color: >-
             {{'black' if
-            state_attr('sensor.weatherman_data_tag','wm_temp_6') > 0
-            else 'red' }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_temp_6') > severe_temp_low else 'red' }}
           anchor: rt
         - type: text
           value: /
@@ -244,42 +198,34 @@ action:
           anchor: mt
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_6_low')
-            | string }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_temp_6_low') | string }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 226
           "y": 118
           size: 14
           color: >-
             {{'black' if
-            state_attr('sensor.weatherman_data_tag','wm_temp_6_low') > 0 else 'red' }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_temp_6_low') > severe_temp_low else 'red' }}
           anchor: lt
         - type: icon
           value: >-
             weather-{{
-            state_attr('sensor.weatherman_data_tag','wm_cond_6') |
-            string }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_cond_6') | string }}
           x: 206
           "y": 78
           size: 34
           color: >-
-            {{'red' if
-            state_attr('sensor.weatherman_data_tag','wm_cond_6') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_6') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_6') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_6') in severe_weather else 'black' }}
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_7') |
-            string }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_temp_7') | string }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 269
           "y": 111
           size: 14
           color: >-
             {{'black' if
-            state_attr('sensor.weatherman_data_tag','wm_temp_7') > 0  else 'red' }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_temp_7') > severe_temp_low else 'red' }}
           anchor: rt
         - type: text
           value: /
@@ -291,7 +237,7 @@ action:
           anchor: mt
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_7_low')
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_temp_7_low')
             | string }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 275
@@ -299,27 +245,19 @@ action:
           size: 14
           color: >-
             {{'black' if
-            state_attr('sensor.weatherman_data_tag','wm_temp_7_low') > 0 else 'red' }}
+            state_attr('sensor.weatherman_data_tag_forecast','wm_temp_7_low') > severe_temp_low else 'red' }}
           anchor: lt
         - type: icon
           value: >-
-            weather-{{
-            state_attr('sensor.weatherman_data_tag','wm_cond_7') |
-            string }}
+            weather-{{ state_attr('sensor.weatherman_data_tag_forecast','wm_cond_7') | string }}
           x: 255
           "y": 78
           size: 34
           color: >-
-            {{'red' if
-            state_attr('sensor.weatherman_data_tag','wm_cond_7') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_7') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_7') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_7') in severe_weather else 'black' }}
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_time_0') |
-            string | upper }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_time_0') | string | upper }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 125
           "y": 2
@@ -328,8 +266,7 @@ action:
           anchor: mt
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_time_1') |
-            string | upper }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_time_1') | string | upper }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 174
           "y": 2
@@ -338,8 +275,7 @@ action:
           anchor: mt
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_time_2') |
-            string | upper }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_time_2') | string | upper }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 223
           "y": 2
@@ -348,8 +284,7 @@ action:
           anchor: mt
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_time_3') |
-            string | upper }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_time_3') | string | upper }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 272
           "y": 2
@@ -358,8 +293,7 @@ action:
           anchor: mt
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_time_4') |
-            string | upper }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_time_4') | string | upper }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 125
           "y": 67
@@ -368,8 +302,7 @@ action:
           anchor: mt
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_time_5') |
-            string | upper }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_time_5') | string | upper }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 174
           "y": 67
@@ -378,8 +311,7 @@ action:
           anchor: mt
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_time_6') |
-            string | upper }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_time_6') | string | upper }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 223
           "y": 67
@@ -388,8 +320,7 @@ action:
           anchor: mt
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_time_7') |
-            string | upper }}
+            {{ state_attr('sensor.weatherman_data_tag_forecast','wm_time_7') | string | upper }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 272
           "y": 67
@@ -405,31 +336,22 @@ action:
           y_end: 64
         - type: text
           value: |-
-            {{ state_attr('weather.home','temperature') | round | int(0) }}{{
-             state_attr('weather.home','temperature_unit') }}
+            {{ state_attr('weather.home','temperature') | round | int(0) }}{{ state_attr('weather.home','temperature_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 52
           "y": 94
           size: 38
           anchor: mt
           color: >-
-            {{'black' if state_attr('weather.home','temperature') | round > 0
-            else 'red' }}
+            {{'black' if state_attr('weather.home','temperature') | round > severe_temp_low else 'red' }}
         - type: icon
           value: >-
-            weather-{{
-            state_attr('sensor.weatherman_data_tag','wm_cond_now') |
-            string }}
+            weather-{{ state_attr('sensor.weatherman_data_tag_forecast','wm_cond_now') | string }}
           x: 6
           "y": 2
           size: 92
           color: >-
-            {{'red' if
-            state_attr('sensor.weatherman_data_tag','wm_cond_now') ==
-            'hail' or  'lightning' in
-            state_attr('sensor.weatherman_data_tag','wm_cond_now') or
-            state_attr('sensor.weatherman_data_tag','wm_cond_now') ==
-            'exceptional' else 'black' }}
+            {{'red' if state_attr('sensor.weatherman_data_tag_forecast','wm_cond_now') in severe_weather else 'black' }}
     target:
       entity_id:
         - open_epaper_link.YOUR_TAG_MAC_ADDRESS
