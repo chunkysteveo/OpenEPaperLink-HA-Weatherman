@@ -11,7 +11,8 @@ variables:
   severe_weather: ['hail','lightning','exceptional']
   severe_temp_low: 0
   severe_wind_speed: 10
-  severe_precipitation: 10
+  severe_precipitation_hour: 5
+  severe_precipitation_day: 10
 action:
   - service: open_epaper_link.drawcustom
     data:
@@ -64,7 +65,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_0') | int
-            < 5 else 'red' }}
+            < severe_precipitation_hour else 'red' }}
           anchor: mt
         - type: text
           value: >-
@@ -124,7 +125,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_1') | int
-            < 5 else 'red' }}
+            < severe_precipitation_hour else 'red' }}
           anchor: mt
         - type: text
           value: >-
@@ -184,7 +185,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_2') | int
-            < 5 else 'red' }}
+            < severe_precipitation_hour else 'red' }}
           anchor: mt
         - type: text
           value: >-
@@ -244,7 +245,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_3') | int
-            < 5 else 'red' }}
+            < severe_precipitation_hour else 'red' }}
           anchor: mt
         - type: text
           value: >-
@@ -323,7 +324,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_4') | int
-            < severe_precipitation else 'red' }}
+            < severe_precipitation_day else 'red' }}
           anchor: mt
         - type: text
           value: >-
@@ -336,7 +337,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_wind_speed_4') | int <
-            severe_precipitation else 'red' }}
+            severe_wind_speed else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -402,7 +403,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_5') | int
-            < severe_precipitation else 'red' }}
+            < severe_precipitation_day else 'red' }}
           anchor: mt
         - type: text
           value: >-
@@ -415,7 +416,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_wind_speed_5') | int <
-            severe_precipitation else 'red' }}
+            severe_wind_speed else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -481,7 +482,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_6') | int
-            < severe_precipitation else 'red' }}
+            < severe_precipitation_day else 'red' }}
           anchor: mt
         - type: text
           value: >-
@@ -494,7 +495,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_wind_speed_6') | int <
-            severe_precipitation else 'red' }}
+            severe_wind_speed else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -560,7 +561,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_7') | int
-            < severe_precipitation else 'red' }}
+            < severe_precipitation_day else 'red' }}
           anchor: mt
         - type: text
           value: >-
