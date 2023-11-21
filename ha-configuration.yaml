@@ -142,13 +142,13 @@ template:
           wm_temp_4: >
             {{ state_attr('weather.home', 'forecast')[0].temperature | round }}
           wm_precipitation_4: >
-            {{ weather_home_hourly.forecast[4].precipitation | round }}
+            {{ state_attr('weather.forecast_home', 'forecast')[0].precipitation | round }}
           wm_temp_4_low: >
             {{ state_attr('weather.home', 'forecast')[0].templow | round }}
           wm_wind_speed_4: >
-            {{ weather_home_hourly.forecast[4].wind_speed | round }}
+            {{ state_attr('weather.forecast_home', 'forecast')[0].wind_speed | round }}
           wm_wind_dir_4: >
-            {{ weather_home_hourly.forecast[4].wind_bearing | round }}
+            {{ state_attr('weather.forecast_home', 'forecast')[0].wind_bearing | round }}
           wm_time_4: >
             {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[0].datetime) | timestamp_custom('%w') | int]) }}
           wm_cond_5: >
@@ -157,13 +157,13 @@ template:
           wm_temp_5: >
             {{ state_attr('weather.home', 'forecast')[1].temperature | round }}
           wm_precipitation_5: >
-            {{ weather_home_hourly.forecast[5].precipitation | round }}
+            {{ state_attr('weather.forecast_home', 'forecast')[1].precipitation | round }}
           wm_temp_5_low: >
             {{ state_attr('weather.home', 'forecast')[1].templow | round }}
           wm_wind_speed_5: >
-            {{ weather_home_hourly.forecast[5].wind_speed | round }}
+            {{ state_attr('weather.forecast_home', 'forecast')[1].wind_speed | round }}
           wm_wind_dir_5: >
-            {{ weather_home_hourly.forecast[5].wind_bearing | round }}
+            {{ state_attr('weather.forecast_home', 'forecast')[1].wind_bearing | round }}
           wm_time_5: >
             {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[1].datetime) | timestamp_custom('%w') | int]) }}
           wm_cond_6: >
@@ -172,13 +172,13 @@ template:
           wm_temp_6: >
             {{ state_attr('weather.home', 'forecast')[2].temperature | round }}
           wm_precipitation_6: >
-            {{ weather_home_hourly.forecast[6].precipitation | round }}
+            {{ state_attr('weather.forecast_home', 'forecast')[2].precipitation | round }}
           wm_temp_6_low: >
             {{ state_attr('weather.home', 'forecast')[2].templow | round }}
           wm_wind_speed_6: >
-            {{ weather_home_hourly.forecast[6].wind_speed | round }}
+            {{ state_attr('weather.forecast_home', 'forecast')[2].wind_speed | round }}
           wm_wind_dir_6: >
-            {{ weather_home_hourly.forecast[6].wind_bearing | round }}
+            {{ state_attr('weather.forecast_home', 'forecast')[2].wind_bearing | round }}
           wm_time_6: >
             {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[2].datetime) | timestamp_custom('%w') | int]) }}  
           wm_cond_7: >
@@ -187,13 +187,13 @@ template:
           wm_temp_7: >
             {{ state_attr('weather.home', 'forecast')[3].temperature | round }}
           wm_precipitation_7: >
-            {{ weather_home_hourly.forecast[7].precipitation | round }}
+            {{ state_attr('weather.forecast_home', 'forecast')[3].precipitation | round }}
           wm_temp_7_low: >
             {{ state_attr('weather.home', 'forecast')[3].templow | round }}
           wm_wind_speed_7: >
-            {{ weather_home_hourly.forecast[7].wind_speed | round }}
+            {{ state_attr('weather.forecast_home', 'forecast')[3].wind_speed | round }}
           wm_wind_dir_7: >
-            {{ weather_home_hourly.forecast[7].wind_bearing | round }}
+            {{ state_attr('weather.forecast_home', 'forecast')[3].wind_bearing | round }}
           wm_time_7: >
            {% set cond0_time = as_timestamp(weather_home_hourly.forecast[0].datetime) %}
             {% if states('sun.sun') == 'above_horizon' and cond0_time > next_setting %}
