@@ -336,7 +336,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_wind_speed_4') | int <
-            severe_precipitation else 'red' }}
+            severe_wind_speed else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -415,7 +415,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_wind_speed_5') | int <
-            severe_precipitation else 'red' }}
+            severe_wind_speed else 'red' }}
           anchor: mt
         - type: icon
           value: >-
@@ -494,7 +494,7 @@ action:
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_wind_speed_6') | int <
-            severe_precipitation else 'red' }}
+            severe_wind_speed else 'red' }}
           anchor: mt
         - type: icon
           value: >-
