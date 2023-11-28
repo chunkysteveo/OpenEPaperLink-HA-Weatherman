@@ -1,8 +1,8 @@
 # OpenEPaperLink-HA-Weatherman
 Weatherman EPaper display using OpenEPaperLink and the HA Integration. Shows current weather state and temperature, the next four hour forecast, and the next four day forecast. Also shows Moon phase. Based heavily from https://github.com/Madelena/esphome-weatherman-dashboard, of which I have been a contributer, and made my own ESPHome based version (code somewhere?!!).
-![Epaper Tag using Weatherman data - Now with Color!](https://github.com/chunkysteveo/OpenEPaperLink-HA-Weatherman/assets/14663002/6925fe94-ee9c-477a-a4e5-69671179b6fb)
 
-![Epaper Tag using Weatherman data](/20230925_143005.jpg?raw=true "Example")
+<img src="20231128_074529_resized.jpg" width="50%" alt="Epaper Tag using Weatherman data - Now with Color!">
+<img src="20230925_143005.jpg" width="50%" alt="Epaper Tag using Weatherman data">
 
 Home Assistant and a working [OpenEpaper](https://openepaperlink.de/) setup, with HA Integration - https://github.com/jonasniesner/open_epaper_link_homeassistant
 
