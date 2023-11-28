@@ -28,7 +28,9 @@ Time format for the hourly conditions can be formatted using the python function
 
 `{{ as_timestamp(weather_home_hourly.forecast[0].datetime) | timestamp_custom('%I %p') }}` = 02 PM  
 `{{ as_timestamp(weather_home_hourly.forecast[0].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly.forecast[0].datetime) | timestamp_custom('%p') }}` = 2 PM  
-`{{ as_timestamp(weather_home_hourly.forecast[0].datetime) | timestamp_custom('%H') }}` = 14  
+`{{ as_timestamp(weather_home_hourly.forecast[0].datetime) | timestamp_custom('%H') }}` = 14
+
+If you go with a 24h hour display (e.g. 14) - amend your automation yaml file `wm_time_0`, `wm_time_1`, `wm_time_2` and `wm_time_3` from `{{ state_attr('sensor.weatherman_data_tag','wm_time_0') | string | upper }}` to `{{ '%0.2d' | format(state_attr('sensor.weatherman_data_tag','wm_time_0')) | string | upper }}` or you will get erorrs as it tries to format a string as a deciaml ('%0.2d').
 
 ### Day names
 To change the display of the day names to your prefered language, replace these occurences in the configuration with your own:
