@@ -13,6 +13,8 @@ Home Assistant and a working [OpenEpaper](https://openepaperlink.de/) setup, wit
 * https://www.home-assistant.io/integrations/moon - Moon phases
 * https://www.home-assistant.io/integrations/sun - Sun sensor, help with weather icons if it's clear at night (so you don't see a Sun at night!)
 
+The scripts assume your Met.no weather sensor is called `weather.home`, your Moon sensor is called `sensor.moon_phase`. There is a service call to `weather.get_forecast` at the top of the HA configuration file to get the hourly weather, which calls this data variable `weather_home_hourly`.
+
 ## Tag size - 2.9" or 4.2"
 I made a 2.9" weather tag (pictured above) but there is also one made for 4.2" by [@svenove](https://github.com/svenove/):
 <img src="4.2-tag.jpg" width="50%" alt="4.2 Epaper Tag using Weatherman data">
