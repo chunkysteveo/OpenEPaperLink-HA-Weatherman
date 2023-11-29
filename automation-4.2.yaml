@@ -113,7 +113,7 @@ action:
             {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_1') in severe_weather else 'black' }}
         - type: text
           value: >-
-            {{ '2 mm' if
+            {{ '' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_1') == 0
             else state_attr('sensor.weatherman_data_tag','wm_precipitation_1') |
             string + ' ' +
@@ -391,7 +391,7 @@ action:
             {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_5') in severe_weather else 'black' }}
         - type: text
           value: >-
-            {{ '1 mm' if
+            {{ '' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_5') == 0
             else state_attr('sensor.weatherman_data_tag','wm_precipitation_5') |
             string + ' ' +
