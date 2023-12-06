@@ -4,7 +4,7 @@ template:
       platform: time_pattern
       minutes: "/15"
     action:
-      - service: weather.get_forecast
+      - service: weather.get_forecasts
         target:
           entity_id: weather.home
         data:
@@ -14,20 +14,6 @@ template:
       - name: Weatherman Data Tag
         state: "{{ now().isoformat() }}"
         attributes:
-          battery_strength_0000028329e608ff: >
-            {% if has_value('sensor.0000028329e608ff_battery') %}
-              {% if states('sensor.0000028329e608ff_battery') | int >= 90 %}
-                battery-high 
-              {% elif states('sensor.0000028329e608ff_battery') | int >= 60 %}
-                battery-medium 
-              {% elif states('sensor.0000028329e608ff_battery') | int >= 30 %}
-                battery-low 
-              {% else %} 
-                battery-outline 
-              {% endif %}
-            {% else %}
-              battery-off-outline
-            {% endif %}
           moon_phase: >
             {% set cond_moon = state_attr('sensor.moon_phase', 'icon') %}
             {{ cond_moon.split('mdi:')[1] }}
