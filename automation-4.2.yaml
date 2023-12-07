@@ -27,7 +27,7 @@ action:
           size: 24
           color: black
         - type: text
-          value: "{{ state_attr('sensor.weatherman_data_tag','wm_temp_0') | round }}°C"
+          value: "{{ state_attr('sensor.weatherman_data_tag','wm_temp_0') | round }}{{ state_attr('sensor.weatherman_data_tag','temperature_unit') }}"
           font: ../../media/GothamRnd-Bold.ttf
           x: 140
           "y": 80
@@ -57,7 +57,7 @@ action:
             state_attr('sensor.weatherman_data_tag','wm_precipitation_0') == 0
             else state_attr('sensor.weatherman_data_tag','wm_precipitation_0') |
             string + ' ' +
-            state_attr('weather.home','precipitation_unit') }}
+            state_attr('sensor.weatherman_data_tag','precipitation_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 140
           "y": 105
@@ -93,7 +93,7 @@ action:
         - type: text
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_temp_1') | string
-            }}°C
+            }}{{ state_attr('sensor.weatherman_data_tag','temperature_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 216
           "y": 80
@@ -117,7 +117,7 @@ action:
             state_attr('sensor.weatherman_data_tag','wm_precipitation_1') == 0
             else state_attr('sensor.weatherman_data_tag','wm_precipitation_1') |
             string + ' ' +
-            state_attr('weather.home','precipitation_unit') }}
+            state_attr('sensor.weatherman_data_tag','precipitation_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 216
           "y": 105
@@ -153,7 +153,7 @@ action:
         - type: text
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_temp_2') | string
-            }}°C
+            }}{{ state_attr('sensor.weatherman_data_tag','temperature_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 292
           "y": 80
@@ -177,7 +177,7 @@ action:
             state_attr('sensor.weatherman_data_tag','wm_precipitation_2') == 0
             else state_attr('sensor.weatherman_data_tag','wm_precipitation_2') |
             string + ' ' +
-            state_attr('weather.home','precipitation_unit') }}
+            state_attr('sensor.weatherman_data_tag','precipitation_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 292
           "y": 105
@@ -213,7 +213,7 @@ action:
         - type: text
           value: >-
             {{ state_attr('sensor.weatherman_data_tag','wm_temp_3') | string
-            }}°C
+            }}{{ state_attr('sensor.weatherman_data_tag','temperature_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 368
           "y": 80
@@ -237,7 +237,7 @@ action:
             state_attr('sensor.weatherman_data_tag','wm_precipitation_3') == 0
             else state_attr('sensor.weatherman_data_tag','wm_precipitation_3') |
             string + ' ' +
-            state_attr('weather.home','precipitation_unit') }}
+            state_attr('sensor.weatherman_data_tag','precipitation_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 368
           "y": 105
@@ -316,7 +316,7 @@ action:
             state_attr('sensor.weatherman_data_tag','wm_precipitation_4') == 0
             else state_attr('sensor.weatherman_data_tag','wm_precipitation_4') |
             string + ' ' +
-            state_attr('weather.home','precipitation_unit') }}
+            state_attr('sensor.weatherman_data_tag','precipitation_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 50
           "y": 259
@@ -395,7 +395,7 @@ action:
             state_attr('sensor.weatherman_data_tag','wm_precipitation_5') == 0
             else state_attr('sensor.weatherman_data_tag','wm_precipitation_5') |
             string + ' ' +
-            state_attr('weather.home','precipitation_unit') }}
+            state_attr('sensor.weatherman_data_tag','precipitation_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 150
           "y": 259
@@ -474,7 +474,7 @@ action:
             state_attr('sensor.weatherman_data_tag','wm_precipitation_6') == 0
             else state_attr('sensor.weatherman_data_tag','wm_precipitation_6') |
             string + ' ' +
-            state_attr('weather.home','precipitation_unit') }}
+            state_attr('sensor.weatherman_data_tag','precipitation_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 250
           "y": 259
@@ -553,7 +553,7 @@ action:
             state_attr('sensor.weatherman_data_tag','wm_precipitation_7') == 0
             else state_attr('sensor.weatherman_data_tag','wm_precipitation_7') |
             string + ' ' +
-            state_attr('weather.home','precipitation_unit') }}
+            state_attr('sensor.weatherman_data_tag','precipitation_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 350
           "y": 259
@@ -678,14 +678,14 @@ action:
           x_end: 380
           y_end: 144
         - type: text
-          value: "{{ state_attr('sensor.weatherman_data_tag','wm_temp_0') | round }}°C"
+          value: "{{ state_attr('sensor.weatherman_data_tag','wm_temp_now') | round }}{{ state_attr('sensor.weatherman_data_tag','temperature_unit') }}"
           font: ../../media/GothamRnd-Bold.ttf
           x: 52
           "y": 94
           size: 38
           anchor: mt
           color: >-
-            {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_0') |
+            {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_now') |
             round > severe_temp_low else 'red' }}
         - type: icon
           value: >-
