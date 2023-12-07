@@ -25,7 +25,7 @@ action:
           color: black
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_0') | string }}{{ state_attr('weather.home','temperature_unit') }}
+            {{ state_attr('sensor.weatherman_data_tag','wm_temp_0') | string }}{{ state_attr('sensor.weatherman_data_tag','temperature_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 125
           "y": 47
@@ -44,7 +44,7 @@ action:
             {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_0') in severe_weather else 'black' }}
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_1') | string }}{{ state_attr('weather.home','temperature_unit') }}
+            {{ state_attr('sensor.weatherman_data_tag','wm_temp_1') | string }}{{ state_attr('sensor.weatherman_data_tag','temperature_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 174
           "y": 47
@@ -63,7 +63,7 @@ action:
             {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_1') in severe_weather else 'black' }}
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_2') | string }}{{ state_attr('weather.home','temperature_unit') }}
+            {{ state_attr('sensor.weatherman_data_tag','wm_temp_2') | string }}{{ state_attr('sensor.weatherman_data_tag','temperature_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 223
           "y": 47
@@ -82,7 +82,7 @@ action:
             {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_2') in severe_weather else 'black' }}
         - type: text
           value: >-
-            {{ state_attr('sensor.weatherman_data_tag','wm_temp_3') | string }}{{ state_attr('weather.home','temperature_unit') }}
+            {{ state_attr('sensor.weatherman_data_tag','wm_temp_3') | string }}{{ state_attr('sensor.weatherman_data_tag','temperature_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 272
           "y": 47
@@ -336,14 +336,14 @@ action:
           y_end: 64
         - type: text
           value: |-
-            {{ state_attr('weather.home','temperature') | round | int(0) }}{{ state_attr('weather.home','temperature_unit') }}
+            {{ state_attr('sensor.weatherman_data_tag','wm_temp_now') | round | int(0) }}{{ state_attr('sensor.weatherman_data_tag','temperature_unit') }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 52
           "y": 94
           size: 38
           anchor: mt
           color: >-
-            {{'black' if state_attr('weather.home','temperature') | round > severe_temp_low else 'red' }}
+            {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_now') | round > severe_temp_low else 'red' }}
         - type: icon
           value: >-
             weather-{{ state_attr('sensor.weatherman_data_tag','wm_cond_now') | string }}
