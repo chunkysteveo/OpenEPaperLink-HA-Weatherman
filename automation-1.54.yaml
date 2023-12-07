@@ -1,0 +1,194 @@
+alias: Epaper - Weatherman - 1.54"
+description: "Mini Weatherman showing current conditions and the next hour and day summary."
+variables:
+  severe_weather:
+    - fog
+    - hail
+    - lightning
+    - lightning-rainy
+    - pouring
+    - snowy
+    - snowy-rainy
+    - windy
+    - windy-variant
+    - exceptional
+  severe_temp_low: 3
+  severe_wind_speed: 10
+  severe_precipitation_hour: 5
+  severe_precipitation_day: 10
+mode: restart
+trigger:
+  - platform: time_pattern
+    minutes: /30
+condition:
+  - condition: time
+    after: "07:25:00"
+    before: "22:00:00"
+action:
+  - service: open_epaper_link.drawcustom
+    data:
+      background: white
+      rotate: 0
+      payload:
+        - type: icon
+          value: >-
+            {{ state_attr('sensor.weatherman_data_tag','moon_phase') |
+            string }}
+          x: 85
+          "y": 1
+          size: 18
+          color: black
+        - type: text
+          value: >-
+            {{ state_attr('sensor.weatherman_data_tag','wm_temp_0') |
+            string }}{{
+            state_attr('sensor.weatherman_data_tag','temperature_unit')
+            }}
+          font: ../../media/GothamRnd-Bold.ttf
+          x: 125
+          "y": 50
+          size: 18
+          color: >-
+            {{'black' if state_attr('sensor.weatherman_data_tag','wm_temp_0') >
+            severe_temp_low else 'red' }}
+          anchor: mt
+        - type: icon
+          value: >-
+            weather-{{
+            state_attr('sensor.weatherman_data_tag','wm_cond_0') |
+            string }}
+          x: 108
+          "y": 16
+          size: 34
+          color: >-
+            {{'red' if
+            state_attr('sensor.weatherman_data_tag','wm_cond_0') in
+            severe_weather else 'black' }}
+        - type: text
+          value: >-
+            {{ state_attr('sensor.weatherman_data_tag','wm_temp_4') |
+            string }}
+          font: ../../media/GothamRnd-Bold.ttf
+          x: 122
+          "y": 114
+          size: 14
+          color: >-
+            {{'black' if
+            state_attr('sensor.weatherman_data_tag','wm_temp_4') >
+            severe_temp_low else 'red' }}
+          anchor: rt
+        - type: text
+          value: /
+          font: ../../media/GothamRnd-Bold.ttf
+          x: 125
+          "y": 115
+          size: 14
+          color: black
+          anchor: mt
+        - type: text
+          value: >-
+            {{ state_attr('sensor.weatherman_data_tag','wm_temp_4_low')
+            | string }}
+          font: ../../media/GothamRnd-Bold.ttf
+          x: 128
+          "y": 121
+          size: 14
+          color: >-
+            {{'black' if
+            state_attr('sensor.weatherman_data_tag','wm_temp_4_low') >
+            severe_temp_low else 'red' }}
+          anchor: lt
+        - type: icon
+          value: >-
+            weather-{{
+            state_attr('sensor.weatherman_data_tag','wm_cond_4') |
+            string }}
+          x: 108
+          "y": 81
+          size: 34
+          color: >-
+            {{'red' if
+            state_attr('sensor.weatherman_data_tag','wm_cond_4') in
+            severe_weather else 'black' }}
+        - type: text
+          value: >-
+            {{ state_attr('sensor.weatherman_data_tag','wm_time_0') |
+            string | upper }}
+          font: ../../media/GothamRnd-Bold.ttf
+          x: 125
+          "y": 5
+          size: 12
+          color: black
+          anchor: mt
+        - type: text
+          value: >-
+            {{ state_attr('sensor.weatherman_data_tag','wm_time_4') |
+            string | upper }}
+          font: ../../media/GothamRnd-Bold.ttf
+          x: 125
+          "y": 70
+          size: 12
+          color: black
+          anchor: mt
+        - type: line
+          fill: black
+          width: 1
+          x_start: 105
+          y_start: 67
+          x_end: 150
+          y_end: 67
+        - type: text
+          value: >-
+            {{ state_attr('sensor.weatherman_data_tag','wm_temp_now') |
+            round | int(0) }}{{
+            state_attr('sensor.weatherman_data_tag','temperature_unit')
+            }}
+          font: ../../media/GothamRnd-Bold.ttf
+          x: 52
+          "y": 94
+          size: 38
+          anchor: mt
+          color: >-
+            {{'black' if
+            state_attr('sensor.weatherman_data_tag','wm_temp_now') |
+            round > severe_temp_low else 'red' }}
+        - type: icon
+          value: >-
+            weather-{{
+            state_attr('sensor.weatherman_data_tag','wm_cond_now') |
+            string }}
+          x: 6
+          "y": 2
+          size: 92
+          color: >-
+            {{'red' if
+            state_attr('sensor.weatherman_data_tag','wm_cond_now') in
+            severe_weather else 'black' }}
+        - type: icon
+          value: >-
+            {{ "%s" %
+            (["arrow-down","arrow-bottom-left","arrow-left","arrow-top-left","arrow-up","arrow-top-right","arrow-right",
+            "arrow-bottom-right","arrow-down"][(state_attr('sensor.weatherman_data_tag','wm_wind_dir_now')/45)
+            | round ]) }}
+          x: 6
+          "y": 129
+          size: 20
+          color: black  
+        - type: text
+          value: >-
+            {{  state_attr('sensor.weatherman_data_tag','wm_wind_speed_now') |
+            round }}{{
+            state_attr('sensor.weatherman_data_tag','wind_speed_unit')
+            }}
+          font: ../../media/GothamRnd-Bold.ttf
+          x: 26
+          "y": 130
+          size: 18
+          color: >-
+            {{'black' if
+            state_attr('sensor.weatherman_data_tag','wm_wind_speed_now') | int <
+            severe_wind_speed else 'red' }}
+          anchor: lt        
+    target:
+      entity_id:
+        - open_epaper_link.000002A123456789
