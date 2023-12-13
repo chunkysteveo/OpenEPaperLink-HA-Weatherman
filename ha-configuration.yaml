@@ -17,9 +17,14 @@ template:
           moon_phase: >
             {% set cond_moon = state_attr('sensor.moon_phase', 'icon') %}
             {{ cond_moon.split('mdi:')[1] }}
+          sun_next_rising: >
+            {{ as_timestamp(state_attr("sun.sun", "next_rising")) | timestamp_custom('%-I:%M %p') }}
+          sun_next_setting: >
+            {{ as_timestamp(state_attr("sun.sun", "next_setting")) | timestamp_custom('%-I:%M %p') }}  
           temperature_unit: "{{ state_attr('weather.home','temperature_unit') }}"
           wind_speed_unit: "{{ state_attr('weather.home','wind_speed_unit') }}"
           precipitation_unit: "{{ state_attr('weather.home','precipitation_unit') }}"  
+          pressure_unit: "{{ state_attr('weather.home','pressure_unit') }}"
           wm_cond_now: >
             {% set cond_now = states('weather.home') %}
             {% if cond_now == 'partlycloudy' %}{% set cond_now = 'partly-cloudy' %}{% endif %}
@@ -31,6 +36,18 @@ template:
             {% endif %}
           wm_temp_now: >
             {{ state_attr('weather.home','temperature') }}  
+          wm_wind_speed_now: >
+            {{ state_attr('weather.home','wind_speed') | round }}
+          wm_wind_dir_now: >
+            {{ state_attr('weather.home','wind_bearing') | round }}    
+          wm_dew_point_now: >
+            {{ state_attr('weather.home','dew_point') }}
+          wm_humidity_now: >
+            {{ state_attr('weather.home','humidity') }}
+          wm_cloud_coverage_now: >
+            {{ state_attr('weather.home','cloud_coverage') }}
+          wm_pressure_now: >
+            {{ state_attr('weather.home','pressure') }}  
           wm_cond_0: >
             {% set cond0 = weather_home_hourly['weather.home']['forecast'][0].condition %}
             {% if cond0 == 'partlycloudy' %}{% set cond0 = 'partly-cloudy' %}{% endif %}
@@ -128,62 +145,77 @@ template:
           wm_time_3: >
             {{ as_timestamp(weather_home_hourly['weather.home']['forecast'][3].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly['weather.home']['forecast'][3].datetime) | timestamp_custom('%p') }}    
           wm_cond_4: >
-            {% set cond4 = state_attr('weather.home', 'forecast')[0].condition %}
+            {% set cond4 = state_attr('weather.home', 'forecast')[1].condition %}
             {% if cond4 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond4 }} {% endif %}
           wm_temp_4: >
-            {{ state_attr('weather.home', 'forecast')[0].temperature | round }}
+            {{ state_attr('weather.home', 'forecast')[1].temperature | round }}
           wm_precipitation_4: >
-            {{ state_attr('weather.home', 'forecast')[0].precipitation | round }}
+            {{ state_attr('weather.home', 'forecast')[1].precipitation | round }}
           wm_temp_4_low: >
-            {{ state_attr('weather.home', 'forecast')[0].templow | round }}
+            {{ state_attr('weather.home', 'forecast')[1].templow | round }}
           wm_wind_speed_4: >
-            {{ state_attr('weather.home', 'forecast')[0].wind_speed | round }}
+            {{ state_attr('weather.home', 'forecast')[1].wind_speed | round }}
           wm_wind_dir_4: >
-            {{ state_attr('weather.home', 'forecast')[0].wind_bearing | round }}
+            {{ state_attr('weather.home', 'forecast')[1].wind_bearing | round }}
           wm_time_4: >
-            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[0].datetime) | timestamp_custom('%w') | int]) }}
+            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[1].datetime) | timestamp_custom('%w') | int]) }}
           wm_cond_5: >
-            {% set cond5 = state_attr('weather.home', 'forecast')[1].condition %}
+            {% set cond5 = state_attr('weather.home', 'forecast')[2].condition %}
             {% if cond5 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond5 }} {% endif %}
           wm_temp_5: >
-            {{ state_attr('weather.home', 'forecast')[1].temperature | round }}
+            {{ state_attr('weather.home', 'forecast')[2].temperature | round }}
           wm_precipitation_5: >
-            {{ state_attr('weather.home', 'forecast')[1].precipitation | round }}
+            {{ state_attr('weather.home', 'forecast')[2].precipitation | round }}
           wm_temp_5_low: >
-            {{ state_attr('weather.home', 'forecast')[1].templow | round }}
+            {{ state_attr('weather.home', 'forecast')[2].templow | round }}
           wm_wind_speed_5: >
-            {{ state_attr('weather.home', 'forecast')[1].wind_speed | round }}
+            {{ state_attr('weather.home', 'forecast')[2].wind_speed | round }}
           wm_wind_dir_5: >
-            {{ state_attr('weather.home', 'forecast')[1].wind_bearing | round }}
+            {{ state_attr('weather.home', 'forecast')[2].wind_bearing | round }}
           wm_time_5: >
-            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[1].datetime) | timestamp_custom('%w') | int]) }}
+            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[2].datetime) | timestamp_custom('%w') | int]) }}
           wm_cond_6: >
-            {% set cond6 = state_attr('weather.home', 'forecast')[2].condition %}
+            {% set cond6 = state_attr('weather.home', 'forecast')[3].condition %}
             {% if cond6 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond6 }} {% endif %}
           wm_temp_6: >
-            {{ state_attr('weather.home', 'forecast')[2].temperature | round }}
+            {{ state_attr('weather.home', 'forecast')[3].temperature | round }}
           wm_precipitation_6: >
-            {{ state_attr('weather.home', 'forecast')[2].precipitation | round }}
+            {{ state_attr('weather.home', 'forecast')[3].precipitation | round }}
           wm_temp_6_low: >
-            {{ state_attr('weather.home', 'forecast')[2].templow | round }}
+            {{ state_attr('weather.home', 'forecast')[3].templow | round }}
           wm_wind_speed_6: >
-            {{ state_attr('weather.home', 'forecast')[2].wind_speed | round }}
+            {{ state_attr('weather.home', 'forecast')[3].wind_speed | round }}
           wm_wind_dir_6: >
-            {{ state_attr('weather.home', 'forecast')[2].wind_bearing | round }}
+            {{ state_attr('weather.home', 'forecast')[3].wind_bearing | round }}
           wm_time_6: >
-            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[2].datetime) | timestamp_custom('%w') | int]) }}  
+            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[3].datetime) | timestamp_custom('%w') | int]) }}  
           wm_cond_7: >
-            {% set cond7 = state_attr('weather.home', 'forecast')[3].condition %}
+            {% set cond7 = state_attr('weather.home', 'forecast')[4].condition %}
             {% if cond7 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond7 }} {% endif %}
           wm_temp_7: >
-            {{ state_attr('weather.home', 'forecast')[3].temperature | round }}
+            {{ state_attr('weather.home', 'forecast')[4].temperature | round }}
           wm_precipitation_7: >
-            {{ state_attr('weather.home', 'forecast')[3].precipitation | round }}
+            {{ state_attr('weather.home', 'forecast')[4].precipitation | round }}
           wm_temp_7_low: >
-            {{ state_attr('weather.home', 'forecast')[3].templow | round }}
+            {{ state_attr('weather.home', 'forecast')[4].templow | round }}
           wm_wind_speed_7: >
-            {{ state_attr('weather.home', 'forecast')[3].wind_speed | round }}
+            {{ state_attr('weather.home', 'forecast')[4].wind_speed | round }}
           wm_wind_dir_7: >
-            {{ state_attr('weather.home', 'forecast')[3].wind_bearing | round }}
+            {{ state_attr('weather.home', 'forecast')[4].wind_bearing | round }}
           wm_time_7: >
-            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[3].datetime) | timestamp_custom('%w') | int]) }}
+            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[4].datetime) | timestamp_custom('%w') | int]) }}
+          wm_cond_8: >
+            {% set cond8 = state_attr('weather.home', 'forecast')[5].condition %}
+            {% if cond8 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond8 }} {% endif %}
+          wm_temp_8: >
+            {{ state_attr('weather.home', 'forecast')[5].temperature | round }}
+          wm_temp_8_low: >
+            {{ state_attr('weather.home', 'forecast')[5].templow | round }}    
+          wm_precipitation_8: >
+            {{ state_attr('weather.home', 'forecast')[5].precipitation }}
+          wm_wind_speed_8: >
+            {{ state_attr('weather.home', 'forecast')[5].wind_speed | round }}
+          wm_wind_dir_8: >
+            {{ state_attr('weather.home', 'forecast')[5].wind_bearing | round }}
+          wm_time_8: >
+            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[5].datetime) | timestamp_custom('%w') | int]) }}  
