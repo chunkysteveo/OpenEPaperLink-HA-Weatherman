@@ -15,12 +15,16 @@ Home Assistant and a working [OpenEpaper](https://openepaperlink.de/) setup, wit
 
 The scripts assume your Met.no weather sensor is called `weather.home`, your Moon sensor is called `sensor.moon_phase`. There is a service call to `weather.get_forecasts` at the top of the HA configuration file to get the hourly weather, which calls this data variable `weather_home_hourly`. `get_forecasts` is a different response to `get_forecast`, so make sure you are on HA version 2023.12 or greater - it will break if you use `get_forecast`!
 
-## Tag size - 1.54", 2.9" or 4.2"
+## Tag size - 1.54", 2.9" and 4.2"
 I made a 2.9" weather tag (pictured above) but there is also one made for 4.2" by [@svenove](https://github.com/svenove/):
 <img src="4.2-tag.jpg" width="50%" alt="4.2 Epaper Tag using Weatherman data">
 
 I've also added a small 1.54" mini version, which shows the current weather, and the following hour and day ahead.
 <img src="20231207_130735_resized.jpg" width="50%" alt="1.54 Epaper Tag using Weatherman data">
+
+A fully featured "kitchen sink" 4.2" tag that has lots of current weather data, the Sun rising & setting times, an additional day on the daily forecasts, and a lot more info in all the forecasts.
+<img src="20231213_212527_resized.jpg" width="50%" alt="4.2 'Kitchen Sink' Tag using Weatherman data">
+
 
 ## Installation
 * Add font `GothamRnd-Bold.ttf` to `/config/media` Home Assistant (create the folder "media" too).
@@ -40,6 +44,13 @@ If you go with a 24h hour display (e.g. 14) - amend your automation yaml file `w
 ### Day names
 To change the display of the day names to your prefered language, replace these occurences in the configuration with your own:
 `{{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(state_attr('weather.home', 'forecast')[0].datetime) | timestamp_custom('%w') | int]) }}`
+
+### Precipitation accuracy
+I have removed the rounding for precipitation values (usually in mm). This will add a lot more 0.0, 0.1, 1.2 numbers on your screen. To tidy it up and just have round numbers, just add `| round` filter to any precipitation value in ha-configuration, e.g:
+```
+wm_precipitation_0: >
+          {{ weather_home_hourly['weather.home']['forecast'][0].precipitation | round }}
+```
 
 ### Temperature right now
 If you have an outdoor temperature sensor available in HASS, you could display that for the current temperature instead of the forecasted temperature.
