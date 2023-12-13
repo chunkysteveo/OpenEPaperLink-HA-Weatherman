@@ -65,7 +65,7 @@ template:
           wm_temp_0: >
             {{ weather_home_hourly['weather.home']['forecast'][0].temperature | round }}
           wm_precipitation_0: >
-            {{ weather_home_hourly['weather.home']['forecast'][0].precipitation | round }}
+            {{ weather_home_hourly['weather.home']['forecast'][0].precipitation }}
           wm_wind_speed_0: >
             {{ weather_home_hourly['weather.home']['forecast'][0].wind_speed | round }}
           wm_wind_dir_0: >
@@ -89,7 +89,7 @@ template:
           wm_temp_1: >
             {{ weather_home_hourly['weather.home']['forecast'][1].temperature | round }}
           wm_precipitation_1: >
-            {{ weather_home_hourly['weather.home']['forecast'][1].precipitation | round }}
+            {{ weather_home_hourly['weather.home']['forecast'][1].precipitation }}
           wm_wind_speed_1: >
             {{ weather_home_hourly['weather.home']['forecast'][1].wind_speed | round }}
           wm_wind_dir_1: >
@@ -113,7 +113,7 @@ template:
           wm_temp_2: >
             {{ weather_home_hourly['weather.home']['forecast'][2].temperature | round }}
           wm_precipitation_2: >
-            {{ weather_home_hourly['weather.home']['forecast'][2].precipitation | round }}
+            {{ weather_home_hourly['weather.home']['forecast'][2].precipitation }}
           wm_wind_speed_2: >
             {{ weather_home_hourly['weather.home']['forecast'][2].wind_speed | round }}
           wm_wind_dir_2: >
@@ -137,7 +137,7 @@ template:
           wm_temp_3: >
             {{ weather_home_hourly['weather.home']['forecast'][3].temperature | round }}
           wm_precipitation_3: >
-            {{ weather_home_hourly['weather.home']['forecast'][3].precipitation | round }}
+            {{ weather_home_hourly['weather.home']['forecast'][3].precipitation }}
           wm_wind_speed_3: >
             {{ weather_home_hourly['weather.home']['forecast'][3].wind_speed | round }}
           wm_wind_dir_3: >
@@ -150,7 +150,7 @@ template:
           wm_temp_4: >
             {{ state_attr('weather.home', 'forecast')[1].temperature | round }}
           wm_precipitation_4: >
-            {{ state_attr('weather.home', 'forecast')[1].precipitation | round }}
+            {{ state_attr('weather.home', 'forecast')[1].precipitation }}
           wm_temp_4_low: >
             {{ state_attr('weather.home', 'forecast')[1].templow | round }}
           wm_wind_speed_4: >
@@ -165,7 +165,7 @@ template:
           wm_temp_5: >
             {{ state_attr('weather.home', 'forecast')[2].temperature | round }}
           wm_precipitation_5: >
-            {{ state_attr('weather.home', 'forecast')[2].precipitation | round }}
+            {{ state_attr('weather.home', 'forecast')[2].precipitation }}
           wm_temp_5_low: >
             {{ state_attr('weather.home', 'forecast')[2].templow | round }}
           wm_wind_speed_5: >
@@ -180,7 +180,7 @@ template:
           wm_temp_6: >
             {{ state_attr('weather.home', 'forecast')[3].temperature | round }}
           wm_precipitation_6: >
-            {{ state_attr('weather.home', 'forecast')[3].precipitation | round }}
+            {{ state_attr('weather.home', 'forecast')[3].precipitation }}
           wm_temp_6_low: >
             {{ state_attr('weather.home', 'forecast')[3].templow | round }}
           wm_wind_speed_6: >
@@ -195,7 +195,7 @@ template:
           wm_temp_7: >
             {{ state_attr('weather.home', 'forecast')[4].temperature | round }}
           wm_precipitation_7: >
-            {{ state_attr('weather.home', 'forecast')[4].precipitation | round }}
+            {{ state_attr('weather.home', 'forecast')[4].precipitation }}
           wm_temp_7_low: >
             {{ state_attr('weather.home', 'forecast')[4].templow | round }}
           wm_wind_speed_7: >
