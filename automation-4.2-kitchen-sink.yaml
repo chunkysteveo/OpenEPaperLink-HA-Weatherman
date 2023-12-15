@@ -363,7 +363,7 @@ action:
             }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 141
-          "y": 135
+          "y": 136
           size: 13
           color: >-
             {{'black' if
@@ -412,7 +412,7 @@ action:
             }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 211
-          "y": 135
+          "y": 136
           size: 13
           color: >-
             {{'black' if
@@ -461,7 +461,7 @@ action:
             }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 281
-          "y": 135
+          "y": 136
           size: 13
           color: >-
             {{'black' if
@@ -510,7 +510,7 @@ action:
             }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 351
-          "y": 135
+          "y": 136
           size: 13
           color: >-
             {{'black' if
@@ -815,7 +815,7 @@ action:
             }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 143
-          "y": 284
+          "y": 285
           size: 13
           color: >-
             {{'black' if
@@ -865,7 +865,7 @@ action:
             }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 198
-          "y": 284
+          "y": 285
           size: 13
           color: >-
             {{'black' if
@@ -915,7 +915,7 @@ action:
             }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 254
-          "y": 284
+          "y": 285
           size: 13
           color: >-
             {{'black' if
@@ -965,7 +965,7 @@ action:
             }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 310
-          "y": 284
+          "y": 285
           size: 13
           color: >-
             {{'black' if
@@ -1015,7 +1015,7 @@ action:
             }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 366
-          "y": 284
+          "y": 285
           size: 13
           color: >-
             {{'black' if
