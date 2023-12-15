@@ -816,7 +816,7 @@ action:
           font: ../../media/GothamRnd-Bold.ttf
           x: 143
           "y": 285
-          size: 13
+          size: 14
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_4')
@@ -866,7 +866,7 @@ action:
           font: ../../media/GothamRnd-Bold.ttf
           x: 198
           "y": 285
-          size: 13
+          size: 14
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_5')
@@ -916,7 +916,7 @@ action:
           font: ../../media/GothamRnd-Bold.ttf
           x: 254
           "y": 285
-          size: 13
+          size: 14
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_6')
@@ -966,7 +966,7 @@ action:
           font: ../../media/GothamRnd-Bold.ttf
           x: 310
           "y": 285
-          size: 13
+          size: 14
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_7')
@@ -1016,7 +1016,7 @@ action:
           font: ../../media/GothamRnd-Bold.ttf
           x: 366
           "y": 285
-          size: 13
+          size: 14
           color: >-
             {{'black' if
             state_attr('sensor.weatherman_data_tag','wm_precipitation_8')
