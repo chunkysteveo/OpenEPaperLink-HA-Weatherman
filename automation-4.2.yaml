@@ -588,9 +588,7 @@ action:
           color: black
         - type: text
           value: >-
-            {{ '%0.2d' |
-            format(state_attr('sensor.weatherman_data_tag','wm_time_0')) |
-            string | upper }}
+            {{ state_attr('sensor.weatherman_data_tag','wm_time_0') | string | upper }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 140
           "y": 5
@@ -599,9 +597,7 @@ action:
           anchor: mt
         - type: text
           value: >-
-            {{ '%0.2d' |
-            format(state_attr('sensor.weatherman_data_tag','wm_time_1')) |
-            string | upper }}
+            {{ state_attr('sensor.weatherman_data_tag','wm_time_1') | string | upper }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 216
           "y": 5
@@ -610,9 +606,7 @@ action:
           anchor: mt
         - type: text
           value: >-
-            {{ '%0.2d' |
-            format(state_attr('sensor.weatherman_data_tag','wm_time_2')) |
-            string | upper }}
+            {{ state_attr('sensor.weatherman_data_tag','wm_time_2') | string | upper }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 292
           "y": 5
@@ -621,9 +615,7 @@ action:
           anchor: mt
         - type: text
           value: >-
-            {{ '%0.2d' |
-            format(state_attr('sensor.weatherman_data_tag','wm_time_3')) |
-            string | upper }}
+            {{ state_attr('sensor.weatherman_data_tag','wm_time_3') | string | upper }}
           font: ../../media/GothamRnd-Bold.ttf
           x: 368
           "y": 5
