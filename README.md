@@ -29,7 +29,7 @@ A fully featured "kitchen sink" 4.2" tag that has lots of current weather data, 
 ## Installation
 * Add font `GothamRnd-Bold.ttf` to `/config/media` Home Assistant (create the folder "media" too).
 * Add template sensor `ha-configuration.yaml` to your configuration file in Home Assistant.
-* Add contents of `automation.yaml` (2.9") or `automation-4.2.yaml` (4.2") to a new automation in Home Assistant (Choose "Edit in Yaml" from top right three dots in a new automation). The automation is using a time template of every 15 minutes - adjust according to taste! There is also a condition on the automation to stop updating between 11pm and 6am - to aid in the lifespan of the display. Other checks could be put in place to only allow for updating the display on human presense etc.
+* Add contents of `automation-2.9.yaml` (2.9") or `automation-4.2.yaml` (4.2") to a new automation in Home Assistant (Choose "Edit in Yaml" from top right three dots in a new automation). The automation is using a time template of every 15 minutes - adjust according to taste! There is also a condition on the automation to stop updating between 11pm and 6am - to aid in the lifespan of the display. Other checks could be put in place to only allow for updating the display on human presense etc.
 
 ## Customizing
 ### Time format
