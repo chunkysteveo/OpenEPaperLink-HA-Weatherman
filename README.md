@@ -16,14 +16,22 @@ Home Assistant and a working [OpenEpaper](https://openepaperlink.de/) setup, wit
 The scripts assume your Met.no weather sensor is called `weather.home`, your Moon sensor is called `sensor.moon_phase`. There is a service call to `weather.get_forecasts` at the top of the HA configuration file to get the hourly weather, which calls this data variable `weather_home_hourly`. `get_forecasts` is a different response to `get_forecast`, so make sure you are on HA version 2023.12 or greater - it will break if you use `get_forecast`!
 
 ## Tag size - 1.54", 2.9" and 4.2"
-I made a 2.9" weather tag (pictured above) but there is also one made for 4.2" by [@svenove](https://github.com/svenove/):
-<img src="4.2-tag.jpg" width="50%" alt="4.2 Epaper Tag using Weatherman data">
+A 2.9" weather tag, which shows the current weather, and the following four hours and days ahead.
 
-I've also added a small 1.54" mini version, which shows the current weather, and the following hour and day ahead.
-<img src="20231207_130735_resized.jpg" width="50%" alt="1.54 Epaper Tag using Weatherman data">
+<img src="20230925_143005.jpg" width="50%" alt="Epaper Tag using Weatherman data">
 
 A fully featured "kitchen sink" 4.2" tag that has lots of current weather data, the Sun rising & setting times, an additional day on the daily forecasts, and a lot more info in all the forecasts.
+
 <img src="20231213_212527_resized.jpg" width="50%" alt="4.2 'Kitchen Sink' Tag using Weatherman data">
+
+Another more simple looking 4.2" tag, made by [@svenove](https://github.com/svenove/):
+
+<img src="4.2-tag.jpg" width="50%" alt="4.2 Epaper Tag using Weatherman data">
+
+A small 1.54" mini version, which shows the current weather, and the following hour and day ahead.
+
+<img src="20231207_130735_resized.jpg" width="50%" alt="1.54 Epaper Tag using Weatherman data">
+
 
 
 ## Installation
