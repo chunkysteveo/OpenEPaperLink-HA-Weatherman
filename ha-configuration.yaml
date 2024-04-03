@@ -151,77 +151,77 @@ template:
           wm_time_3: >
             {{ as_timestamp(weather_home_hourly['weather.home']['forecast'][3].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly['weather.home']['forecast'][3].datetime) | timestamp_custom('%p') }}    
           wm_cond_4: >
-            {% set cond4 = weather_home_hourly['weather.home']['forecast'][1].condition %}
+            {% set cond4 = weather_home_daily['weather.home']['forecast'][1].condition %}
             {% if cond4 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond4 }} {% endif %}
           wm_temp_4: >
-            {{ weather_home_hourly['weather.home']['forecast'][1].temperature | round }}
+            {{ weather_home_daily['weather.home']['forecast'][1].temperature | round }}
           wm_precipitation_4: >
-            {{ weather_home_hourly['weather.home']['forecast'][1].precipitation }}
+            {{ weather_home_daily['weather.home']['forecast'][1].precipitation }}
           wm_temp_4_low: >
-            {{ weather_home_hourly['weather.home']['forecast'][1].templow | round }}
+            {{ weather_home_daily['weather.home']['forecast'][1].templow | round }}
           wm_wind_speed_4: >
-            {{ weather_home_hourly['weather.home']['forecast'][1].wind_speed | round }}
+            {{ weather_home_daily['weather.home']['forecast'][1].wind_speed | round }}
           wm_wind_dir_4: >
-            {{ weather_home_hourly['weather.home']['forecast'][1].wind_bearing | round }}
+            {{ weather_home_daily['weather.home']['forecast'][1].wind_bearing | round }}
           wm_time_4: >
-            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_hourly['weather.home']['forecast'][1].datetime) | timestamp_custom('%w') | int]) }}
+            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_daily['weather.home']['forecast'][1].datetime) | timestamp_custom('%w') | int]) }}
           wm_cond_5: >
-            {% set cond5 = weather_home_hourly['weather.home']['forecast'][2].condition %}
+            {% set cond5 = weather_home_daily['weather.home']['forecast'][2].condition %}
             {% if cond5 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond5 }} {% endif %}
           wm_temp_5: >
-            {{ weather_home_hourly['weather.home']['forecast'][2].temperature | round }}
+            {{ weather_home_daily['weather.home']['forecast'][2].temperature | round }}
           wm_precipitation_5: >
-            {{ weather_home_hourly['weather.home']['forecast'][2].precipitation }}
+            {{ weather_home_daily['weather.home']['forecast'][2].precipitation }}
           wm_temp_5_low: >
-            {{ weather_home_hourly['weather.home']['forecast'][2].templow | round }}
+            {{ weather_home_daily['weather.home']['forecast'][2].templow | round }}
           wm_wind_speed_5: >
-            {{ weather_home_hourly['weather.home']['forecast'][2].wind_speed | round }}
+            {{ weather_home_daily['weather.home']['forecast'][2].wind_speed | round }}
           wm_wind_dir_5: >
-            {{ weather_home_hourly['weather.home']['forecast'][2].wind_bearing | round }}
+            {{ weather_home_daily['weather.home']['forecast'][2].wind_bearing | round }}
           wm_time_5: >
-            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_hourly['weather.home']['forecast'][2].datetime) | timestamp_custom('%w') | int]) }}
+            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_daily['weather.home']['forecast'][2].datetime) | timestamp_custom('%w') | int]) }}
           wm_cond_6: >
-            {% set cond6 = weather_home_hourly['weather.home']['forecast'][3].condition %}
+            {% set cond6 = weather_home_daily['weather.home']['forecast'][3].condition %}
             {% if cond6 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond6 }} {% endif %}
           wm_temp_6: >
-            {{ weather_home_hourly['weather.home']['forecast'][3].temperature | round }}
+            {{ weather_home_daily['weather.home']['forecast'][3].temperature | round }}
           wm_precipitation_6: >
-            {{ weather_home_hourly['weather.home']['forecast'][3].precipitation }}
+            {{ weather_home_daily['weather.home']['forecast'][3].precipitation }}
           wm_temp_6_low: >
-            {{ weather_home_hourly['weather.home']['forecast'][3].templow | round }}
+            {{ weather_home_daily['weather.home']['forecast'][3].templow | round }}
           wm_wind_speed_6: >
-            {{ weather_home_hourly['weather.home']['forecast'][3].wind_speed | round }}
+            {{ weather_home_daily['weather.home']['forecast'][3].wind_speed | round }}
           wm_wind_dir_6: >
-            {{ weather_home_hourly['weather.home']['forecast'][3].wind_bearing | round }}
+            {{ weather_home_daily['weather.home']['forecast'][3].wind_bearing | round }}
           wm_time_6: >
-            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_hourly['weather.home']['forecast'][3].datetime) | timestamp_custom('%w') | int]) }}  
+            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_daily['weather.home']['forecast'][3].datetime) | timestamp_custom('%w') | int]) }}  
           wm_cond_7: >
-            {% set cond7 = weather_home_hourly['weather.home']['forecast'][4].condition %}
+            {% set cond7 = weather_home_daily['weather.home']['forecast'][4].condition %}
             {% if cond7 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond7 }} {% endif %}
           wm_temp_7: >
-            {{ weather_home_hourly['weather.home']['forecast'][4].temperature | round }}
+            {{ weather_home_daily['weather.home']['forecast'][4].temperature | round }}
           wm_precipitation_7: >
-            {{ weather_home_hourly['weather.home']['forecast'][4].precipitation }}
+            {{ weather_home_daily['weather.home']['forecast'][4].precipitation }}
           wm_temp_7_low: >
-            {{ weather_home_hourly['weather.home']['forecast'][4].templow | round }}
+            {{ weather_home_daily['weather.home']['forecast'][4].templow | round }}
           wm_wind_speed_7: >
-            {{ weather_home_hourly['weather.home']['forecast'][4].wind_speed | round }}
+            {{ weather_home_daily['weather.home']['forecast'][4].wind_speed | round }}
           wm_wind_dir_7: >
-            {{ weather_home_hourly['weather.home']['forecast'][4].wind_bearing | round }}
+            {{ weather_home_daily['weather.home']['forecast'][4].wind_bearing | round }}
           wm_time_7: >
-            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_hourly['weather.home']['forecast'][4].datetime) | timestamp_custom('%w') | int]) }}
+            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_daily['weather.home']['forecast'][4].datetime) | timestamp_custom('%w') | int]) }}
           wm_cond_8: >
-            {% set cond8 = weather_home_hourly['weather.home']['forecast'][5].condition %}
+            {% set cond8 = weather_home_daily['weather.home']['forecast'][5].condition %}
             {% if cond8 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond8 }} {% endif %}
           wm_temp_8: >
-            {{ weather_home_hourly['weather.home']['forecast'][5].temperature | round }}
+            {{ weather_home_daily['weather.home']['forecast'][5].temperature | round }}
           wm_temp_8_low: >
-            {{ weather_home_hourly['weather.home']['forecast'][5].templow | round }}    
+            {{ weather_home_daily['weather.home']['forecast'][5].templow | round }}    
           wm_precipitation_8: >
-            {{ weather_home_hourly['weather.home']['forecast'][5].precipitation }}
+            {{ weather_home_daily['weather.home']['forecast'][5].precipitation }}
           wm_wind_speed_8: >
-            {{ weather_home_hourly['weather.home']['forecast'][5].wind_speed | round }}
+            {{ weather_home_daily['weather.home']['forecast'][5].wind_speed | round }}
           wm_wind_dir_8: >
-            {{ weather_home_hourly['weather.home']['forecast'][5].wind_bearing | round }}
+            {{ weather_home_daily['weather.home']['forecast'][5].wind_bearing | round }}
           wm_time_8: >
-            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_hourly['weather.home']['forecast'][5].datetime) | timestamp_custom('%w') | int]) }}  
+            {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_daily['weather.home']['forecast'][5].datetime) | timestamp_custom('%w') | int]) }}    
