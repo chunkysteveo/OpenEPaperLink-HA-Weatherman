@@ -158,7 +158,9 @@ template:
             {{ as_timestamp(weather_home_hourly['weather.home']['forecast'][3].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly['weather.home']['forecast'][3].datetime) | timestamp_custom('%p') }}    
           wm_cond_4: >
             {% set cond4 = weather_home_daily['weather.home']['forecast'][1].condition %}
-            {% if cond4 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond4 }} {% endif %}
+            {% if cond4 == 'partlycloudy' %}{% set cond4 = 'partly-cloudy'%}{% endif %}
+            {% if cond4 == 'clear-night' %}{% set cond4 = 'night' %}{% endif %}
+            {{ cond4 }}
           wm_temp_4: >
             {{ weather_home_daily['weather.home']['forecast'][1].temperature | round }}
           wm_precipitation_4: >
@@ -173,7 +175,9 @@ template:
             {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_daily['weather.home']['forecast'][1].datetime) | timestamp_custom('%w') | int]) }}
           wm_cond_5: >
             {% set cond5 = weather_home_daily['weather.home']['forecast'][2].condition %}
-            {% if cond5 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond5 }} {% endif %}
+            {% if cond5 == 'partlycloudy' %}{% set cond5 = 'partly-cloudy'%}{% endif %}
+            {% if cond5 == 'clear-night' %}{% set cond5 = 'night' %}{% endif %}
+            {{ cond5 }}
           wm_temp_5: >
             {{ weather_home_daily['weather.home']['forecast'][2].temperature | round }}
           wm_precipitation_5: >
@@ -188,7 +192,9 @@ template:
             {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_daily['weather.home']['forecast'][2].datetime) | timestamp_custom('%w') | int]) }}
           wm_cond_6: >
             {% set cond6 = weather_home_daily['weather.home']['forecast'][3].condition %}
-            {% if cond6 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond6 }} {% endif %}
+            {% if cond6 == 'partlycloudy' %}{% set cond6 = 'partly-cloudy'%}{% endif %}
+            {% if cond6 == 'clear-night' %}{% set cond6 = 'night' %}{% endif %}
+            {{ cond6 }}
           wm_temp_6: >
             {{ weather_home_daily['weather.home']['forecast'][3].temperature | round }}
           wm_precipitation_6: >
@@ -203,7 +209,9 @@ template:
             {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_daily['weather.home']['forecast'][3].datetime) | timestamp_custom('%w') | int]) }}  
           wm_cond_7: >
             {% set cond7 = weather_home_daily['weather.home']['forecast'][4].condition %}
-            {% if cond7 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond7 }} {% endif %}
+            {% if cond7 == 'partlycloudy' %}{% set cond7 = 'partly-cloudy'%}{% endif %}
+            {% if cond7 == 'clear-night' %}{% set cond7 = 'night' %}{% endif %}
+            {{ cond7 }}
           wm_temp_7: >
             {{ weather_home_daily['weather.home']['forecast'][4].temperature | round }}
           wm_precipitation_7: >
@@ -218,7 +226,9 @@ template:
             {{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_daily['weather.home']['forecast'][4].datetime) | timestamp_custom('%w') | int]) }}
           wm_cond_8: >
             {% set cond8 = weather_home_daily['weather.home']['forecast'][5].condition %}
-            {% if cond8 == 'partlycloudy' %} partly-cloudy {% else %} {{ cond8 }} {% endif %}
+            {% if cond8 == 'partlycloudy' %}{% set cond8 = 'partly-cloudy'%}{% endif %}
+            {% if cond8 == 'clear-night' %}{% set cond8 = 'night' %}{% endif %}
+            {{ cond8 }}
           wm_temp_8: >
             {{ weather_home_daily['weather.home']['forecast'][5].temperature | round }}
           wm_temp_8_low: >
