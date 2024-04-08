@@ -22,7 +22,13 @@ template:
         attributes:
           moon_phase: >
             {% set cond_moon = states('sensor.moon_phase') %}
+            {% if cond_moon == 'new_moon' %}
+            moon-new
+            {% elif cond_moon == 'full_moon' %}
+            moon-full
+            {% else %}
             {{ "moon-" + cond_moon | replace("_", "-") }}
+            {%endif%}
           sun_next_rising: >
             {{ as_timestamp(state_attr("sun.sun", "next_rising")) | timestamp_custom('%-I:%M %p') }}
           sun_next_setting: >
