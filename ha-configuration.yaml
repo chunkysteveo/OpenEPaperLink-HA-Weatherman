@@ -1,4 +1,6 @@
 # Bundle up all the data to send over to Weatherman.
+# Will auto-detect the weather integration entity to use.
+# If that doesn't work, set the value for the forecast_entity variable manually.
   - trigger:
       platform: time_pattern
       minutes: "/15"
