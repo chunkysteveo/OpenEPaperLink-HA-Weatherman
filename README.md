@@ -15,6 +15,10 @@ Home Assistant and a working [OpenEpaper](https://openepaperlink.de/) setup, wit
 
 The scripts assume your Met.no weather sensor is called `weather.home`, your Moon sensor is called `sensor.moon_phase`. There is a service call to `weather.get_forecasts` at the top of the HA configuration file to get the hourly weather, which calls this data variable `weather_home_hourly`. `get_forecasts` is a different response to `get_forecast`, so make sure you are on HA version 2023.12 or greater - it will break if you use `get_forecast`!
 
+## Breaking changes with HASS 2024.4!
+There are breaking changes with HASS 2024.4, and you will need to change your configuration.yaml or else this will stop working!
+There are quite a few changes needed, so it might be easiest to replace all the configuration with the [new one](ha-configuration.yaml).
+
 ## Tag size - 1.54", 2.9" and 4.2"
 A 2.9" weather tag, which shows the current weather, and the following four hours and days ahead.
 
@@ -47,11 +51,18 @@ Time format for the hourly conditions can be formatted using the python function
 `{{ as_timestamp(weather_home_hourly['weather.home']['forecast'][0].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly.['weather.home']['forecast'][0].datetime) | timestamp_custom('%p') }}` = 2 PM  
 `{{ as_timestamp(weather_home_hourly['weather.home']['forecast'][0].datetime) | timestamp_custom('%H') }}` = 14  
 
-If you go with a 24h hour display (e.g. 14) - amend your automation yaml file `wm_time_0`, `wm_time_1`, `wm_time_2` and `wm_time_3` from `{{ state_attr('sensor.weatherman_data_tag','wm_time_0') | string | upper }}` to `{{ '%0.2d' | format(state_attr('sensor.weatherman_data_tag','wm_time_0') | int) | string | upper }}` or you will get erorrs as it tries to format a string as a deciaml ('%0.2d').
-
 ### Day names
 To change the display of the day names to your prefered language, replace these occurences in the configuration with your own:
-`{{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_hourly['weather.home']['forecast'][0].datetime) | timestamp_custom('%w') | int]) }}`
+`{{ "%s" % (["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][as_timestamp(weather_home_daily['weather.forecast_home']['forecast'][1].datetime) | timestamp_custom('%w') | int]) }}`
+
+### Start daily forcast with today
+By default, the first day shown is tomorrow.
+If you want to display today as the first day, simply substract 1 from all the indexes in the configuration.
+Example (changed [1] to [0]):
+```
+wm_temp_4: >
+            {{ weather_home_daily['weather.forecast_home']['forecast'][0].temperature | round }}
+```
 
 ### Precipitation accuracy
 I have removed the rounding for precipitation values (usually in mm). This will add a lot more 0.0, 0.1, 1.2 numbers on your screen. To tidy it up and just have round numbers, just add `| round` filter to any precipitation value in ha-configuration, e.g:
