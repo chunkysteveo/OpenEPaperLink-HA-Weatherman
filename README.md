@@ -13,7 +13,12 @@ Home Assistant and a working [OpenEpaper](https://openepaperlink.de/) setup, wit
 * https://www.home-assistant.io/integrations/moon - Moon phases
 * https://www.home-assistant.io/integrations/sun - Sun sensor, help with weather icons if it's clear at night (so you don't see a Sun at night!)
 
-The scripts assume your Met.no weather sensor is called `weather.home`, your Moon sensor is called `sensor.moon_phase`. There is a service call to `weather.get_forecasts` at the top of the HA configuration file to get the hourly weather, which calls this data variable `weather_home_hourly`. `get_forecasts` is a different response to `get_forecast`, so make sure you are on HA version 2023.12 or greater - it will break if you use `get_forecast`!
+The scripts will find your Weather Integration sensor, and will work no matter what it is called, as long as you have only one weather integration active, and as long as that exposes only one entity in Home Assistant. If you have more than one of either, set the value of the forecast_entity near the top of the `ha-configuration.yaml` file manually to be the name of your weather sensor e.g. `weather.forecast_home` or `weather.home` using the yaml like the below (remember to keep all indents as they are already in the file):
+```
+variables:
+        forecast_entity: weather.home
+```
+The script also assumes your Moon sensor is called `sensor.moon_phase`. There is a service call to `weather.get_forecasts` at the top of the HA configuration file to get the hourly weather, which calls this data variable `weather_home_hourly`. `get_forecasts` is a different response to `get_forecast`, so make sure you are on HA version 2023.12 or greater - it will break if you use `get_forecast`!
 
 ## Tag size - 1.54", 2.9" and 4.2"
 A 2.9" weather tag, which shows the current weather, and the following four hours and days ahead.
