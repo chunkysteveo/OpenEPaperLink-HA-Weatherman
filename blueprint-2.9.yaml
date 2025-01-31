@@ -153,14 +153,7 @@ action:
         {{ "moon-" + cond_moon | replace("_", "-") }}
         {%endif%}
 
-      sun_next_rising: >
-        {{ as_timestamp(state_attr("sun.sun", "next_rising")) | timestamp_custom('%-I:%M %p') }}
-      sun_next_setting: >
-        {{ as_timestamp(state_attr("sun.sun", "next_setting")) | timestamp_custom('%-I:%M %p') }}
       temperature_unit: "{{ state_attr(forecast_entity,'temperature_unit') }}"
-      wind_speed_unit: "{{ state_attr(forecast_entity,'wind_speed_unit') }}"
-      precipitation_unit: "{{ state_attr(forecast_entity,'precipitation_unit') }}"
-      pressure_unit: "{{ state_attr(forecast_entity,'pressure_unit') }}"
       wm_cond_now: >
         {% set cond_now = states(forecast_entity) %}
         {% if cond_now == 'partlycloudy' %}{% set cond_now = 'partly-cloudy' %}{% endif %}
@@ -176,18 +169,6 @@ action:
         {% else %}
           {{ state_attr(forecast_entity,'temperature') | round }}
         {% endif %}
-      wm_wind_speed_now: >
-        {{ state_attr(forecast_entity,'wind_speed') | round }}
-      wm_wind_dir_now: >
-        {{ state_attr(forecast_entity,'wind_bearing') | round }}
-      wm_dew_point_now: >
-        {{ state_attr(forecast_entity,'dew_point') }}
-      wm_humidity_now: >
-        {{ state_attr(forecast_entity,'humidity') }}
-      wm_cloud_coverage_now: >
-        {{ state_attr(forecast_entity,'cloud_coverage') }}
-      wm_pressure_now: >
-        {{ state_attr(forecast_entity,'pressure') }}
       wm_cond_0: >
         {% set cond0 = weather_home_hourly[forecast_entity]['forecast'][0].condition %}
         {% if cond0 == 'partlycloudy' %}{% set cond0 = 'partly-cloudy' %}{% endif %}
@@ -204,12 +185,6 @@ action:
         {% endif %}
       wm_temp_0: >
         {{ weather_home_hourly[forecast_entity]['forecast'][0].temperature | round }}
-      wm_precipitation_0: >
-        {{ weather_home_hourly[forecast_entity]['forecast'][0].precipitation }}
-      wm_wind_speed_0: >
-        {{ weather_home_hourly[forecast_entity]['forecast'][0].wind_speed | round }}
-      wm_wind_dir_0: >
-        {{ weather_home_hourly[forecast_entity]['forecast'][0].wind_bearing | round }}
       wm_time_0: >
         {% if time_format == "12h" %}
           {{ as_timestamp(weather_home_hourly[forecast_entity]['forecast'][0].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly[forecast_entity]['forecast'][0].datetime) | timestamp_custom('%p') }}
@@ -233,12 +208,6 @@ action:
         {% endif %}
       wm_temp_1: >
         {{ weather_home_hourly[forecast_entity]['forecast'][1].temperature | round }}
-      wm_precipitation_1: >
-        {{ weather_home_hourly[forecast_entity]['forecast'][1].precipitation }}
-      wm_wind_speed_1: >
-        {{ weather_home_hourly[forecast_entity]['forecast'][1].wind_speed | round }}
-      wm_wind_dir_1: >
-        {{ weather_home_hourly[forecast_entity]['forecast'][1].wind_bearing | round }}
       wm_time_1: >
         {% if time_format == "12h" %}
           {{ as_timestamp(weather_home_hourly[forecast_entity]['forecast'][1].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly[forecast_entity]['forecast'][1].datetime) | timestamp_custom('%p') }}
@@ -262,12 +231,6 @@ action:
         {% endif %}
       wm_temp_2: >
         {{ weather_home_hourly[forecast_entity]['forecast'][2].temperature | round }}
-      wm_precipitation_2: >
-        {{ weather_home_hourly[forecast_entity]['forecast'][2].precipitation }}
-      wm_wind_speed_2: >
-        {{ weather_home_hourly[forecast_entity]['forecast'][2].wind_speed | round }}
-      wm_wind_dir_2: >
-        {{ weather_home_hourly[forecast_entity]['forecast'][2].wind_bearing | round }}
       wm_time_2: >
         {% if time_format == "12h" %}
           {{ as_timestamp(weather_home_hourly[forecast_entity]['forecast'][2].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly[forecast_entity]['forecast'][2].datetime) | timestamp_custom('%p') }}
@@ -291,12 +254,6 @@ action:
         {% endif %}
       wm_temp_3: >
         {{ weather_home_hourly[forecast_entity]['forecast'][3].temperature | round }}
-      wm_precipitation_3: >
-        {{ weather_home_hourly[forecast_entity]['forecast'][3].precipitation }}
-      wm_wind_speed_3: >
-        {{ weather_home_hourly[forecast_entity]['forecast'][3].wind_speed | round }}
-      wm_wind_dir_3: >
-        {{ weather_home_hourly[forecast_entity]['forecast'][3].wind_bearing | round }}
       wm_time_3: >
         {% if time_format == "12h" %}
           {{ as_timestamp(weather_home_hourly[forecast_entity]['forecast'][3].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly[forecast_entity]['forecast'][3].datetime) | timestamp_custom('%p') }}
@@ -311,14 +268,8 @@ action:
         {{ cond4 }}
       wm_temp_4: >
         {{ weather_home_daily[forecast_entity]['forecast'][daily_offset].temperature | round }}
-      wm_precipitation_4: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset].precipitation }}
       wm_temp_4_low: >
         {{ weather_home_daily[forecast_entity]['forecast'][daily_offset].templow | round }}
-      wm_wind_speed_4: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset].wind_speed | round }}
-      wm_wind_dir_4: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset].wind_bearing | round }}
       wm_time_4: >
         {{ "%s" % (weekdays_map[weekday_lang][as_timestamp(weather_home_daily[forecast_entity]['forecast'][daily_offset].datetime) | timestamp_custom('%w') | int]) }}
       wm_cond_5: >
@@ -328,14 +279,8 @@ action:
         {{ cond5 }}
       wm_temp_5: >
         {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+1].temperature | round }}
-      wm_precipitation_5: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+1].precipitation }}
       wm_temp_5_low: >
         {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+1].templow | round }}
-      wm_wind_speed_5: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+1].wind_speed | round }}
-      wm_wind_dir_5: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+1].wind_bearing | round }}
       wm_time_5: >
         {{ "%s" % (weekdays_map[weekday_lang][as_timestamp(weather_home_daily[forecast_entity]['forecast'][daily_offset+1].datetime) | timestamp_custom('%w') | int]) }}
       wm_cond_6: >
@@ -345,14 +290,8 @@ action:
         {{ cond6 }}
       wm_temp_6: >
         {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+2].temperature | round }}
-      wm_precipitation_6: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+2].precipitation }}
       wm_temp_6_low: >
         {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+2].templow | round }}
-      wm_wind_speed_6: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+2].wind_speed | round }}
-      wm_wind_dir_6: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+2].wind_bearing | round }}
       wm_time_6: >
         {{ "%s" % (weekdays_map[weekday_lang][as_timestamp(weather_home_daily[forecast_entity]['forecast'][daily_offset+2].datetime) | timestamp_custom('%w') | int]) }}
       wm_cond_7: >
@@ -362,33 +301,10 @@ action:
         {{ cond7 }}
       wm_temp_7: >
         {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+3].temperature | round }}
-      wm_precipitation_7: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+3].precipitation }}
       wm_temp_7_low: >
         {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+3].templow | round }}
-      wm_wind_speed_7: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+3].wind_speed | round }}
-      wm_wind_dir_7: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+3].wind_bearing | round }}
       wm_time_7: >
         {{ "%s" % (weekdays_map[weekday_lang][as_timestamp(weather_home_daily[forecast_entity]['forecast'][daily_offset+3].datetime) | timestamp_custom('%w') | int]) }}
-      wm_cond_8: >
-        {% set cond8 = weather_home_daily[forecast_entity]['forecast'][daily_offset+4].condition %}
-        {% if cond8 == 'partlycloudy' %}{% set cond8 = 'partly-cloudy'%}{% endif %}
-        {% if cond8 == 'clear-night' %}{% set cond8 = 'night' %}{% endif %}
-        {{ cond8 }}
-      wm_temp_8: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+4].temperature | round }}
-      wm_temp_8_low: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+4].templow | round }}
-      wm_precipitation_8: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+4].precipitation }}
-      wm_wind_speed_8: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+4].wind_speed | round }}
-      wm_wind_dir_8: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset+4].wind_bearing | round }}
-      wm_time_8: >
-        {{ "%s" % (weekdays_map[weekday_lang][as_timestamp(weather_home_daily[forecast_entity]['forecast'][daily_offset+4].datetime) | timestamp_custom('%w') | int]) }}
 
       severe_weather:
         [
@@ -404,9 +320,6 @@ action:
           "exceptional",
         ]
       severe_temp_low: 3
-      severe_wind_speed: 10
-      severe_precipitation_hour: 5
-      severe_precipitation_day: 10
 
   - action: open_epaper_link.drawcustom
     target:
