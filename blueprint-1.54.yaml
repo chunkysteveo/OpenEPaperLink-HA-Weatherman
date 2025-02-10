@@ -1,19 +1,25 @@
 blueprint:
-  name: Weatherman 1.54"
-  domain: automation
+  name: Weatherman 1.54" Dev
   description: >
     # OpenEPaperLink Weatherman Display (1.54")
 
-    ## Requirements
+    An automation that displays current weather conditions and forecasts on 1.54" E-Paper displays.
 
-    - [OpenEPaperLink Integration](https://github.com/jonasniesner/open_epaper_link_homeassistant) installed
+    Shows current, next hour, next day forecast and weather icons with optional moon phase display.
 
-    - A weather integration (e.g., [Met.no](https://www.home-assistant.io/integrations/met))
+    ## Prerequisites
 
-    - [Moon integration](https://www.home-assistant.io/integrations/moon) for moon phases
+    - [OpenEPaperLink Integration](https://github.com/OpenEPaperLink/Home_Assistant_Integration) must be installed and configured
 
-    - [Sun integration](https://www.home-assistant.io/integrations/sun) for accurate night-time icons
+    - Any weather integration (e.g., [Met.no](https://www.home-assistant.io/integrations/met)) must be set up
 
+    - Recommended optional integrations:
+      - [Moon integration](https://www.home-assistant.io/integrations/moon) for moon phase display
+      - [Sun integration](https://www.home-assistant.io/integrations/sun) for accurate day/night weather icons
+
+    - For a nicer font add [`GothamRnd-Bold.ttf`](https://github.com/chunkysteveo/OpenEPaperLink-HA-Weatherman/raw/refs/heads/main/GothamRnd-Bold.ttf)
+
+  domain: automation
   input:
     displays:
       name: E-Paper Display(s)
@@ -35,7 +41,7 @@ blueprint:
       input:
         weather_entity:
           name: Weather Entity
-          description: Optional - will auto-select first weather entity if not specified
+          description: Optional - will auto-select first working weather entity if not specified and also try to fall back to another working one if it is currently not working.
           default: ""
           selector:
             entity:
@@ -50,9 +56,15 @@ blueprint:
               filter:
                 domain: sensor
                 device_class: temperature
+        show_temp_unit:
+          name: Show Temperature unit
+          description: Show temperature unit (°C or °F)
+          default: true
+          selector:
+            boolean: {}
         time_format:
           name: Time Format
-          description: Choose between 12-hour (AM/PM) or 24-hour fornat
+          description: Choose between 12-hour (AM/PM) or 24-hour format
           default: "12h"
           selector:
             select:
@@ -68,8 +80,8 @@ blueprint:
           selector:
             boolean: {}
         weekday_format:
-          name: Weekday Format
-          description: Language for weekday abbreviations
+          name: Language
+          description: Language for the interface
           default: "en"
           selector:
             select:
@@ -88,10 +100,11 @@ blueprint:
                   value: "pl"
                 - label: "Croatian"
                   value: "hr"
-
+                - label: "Swedish"
+                  value: "sv"
         font_file:
           name: Font file
-          description: Font file with path
+          description: "Path to a custom font file (default: ppb.ttf) For a better font, use `GothamRnd-Bold.ttf`"
           default: ppb.ttf
           selector:
             text: {}
@@ -103,242 +116,292 @@ variables:
   time_format: !input time_format
   weekday_lang: !input weekday_format
   start_with_today: !input start_with_today
-  forecast_entity: >
-    {% if weather_entity and weather_entity != "" %}
+  forecast_entity: >-
+    {% if weather_entity and states(weather_entity) not in ['unknown', 'unavailable'] %}
       {{ weather_entity }}
     {% else %}
-      {%- for state in states | selectattr('domain','equalto','weather') %}
-        {{ state.entity_id }}
-      {%- endfor -%}
+      {{ (states | selectattr('domain','equalto','weather') | rejectattr('state','in',['unknown','unavailable']) | list | first).entity_id if states | selectattr('domain','equalto','weather') | rejectattr('state','in',['unknown','unavailable']) | list else 'unavailable' }}
     {% endif %}
+  show_temp_unit: !input show_temp_unit
+  language_map: >
+    {% set map = {
+      "en": {
+        "weekdays": ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+        "no_weather": "No working weather entity found."
+      },
+      "de": {
+        "weekdays": ["So","Mo","Di","Mi","Do","Fr","Sa"],
+        "no_weather": "Keine funktionierende Wetter-Entität gefunden."
+      },
+      "fr": {
+        "weekdays": ["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"],
+        "no_weather": "Aucune entité météo fonctionnelle trouvée."
+      },
+      "nl": {
+        "weekdays": ["Zo","Ma","Di","Wo","Do","Vr","Za"],
+        "no_weather": "Geen werkende weerentiteit gevonden."
+      },
+      "es": {
+        "weekdays": ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"],
+        "no_weather": "No se encontró ninguna entidad meteorológica funcional."
+      },
+      "pl": {
+        "weekdays": ["Nd","Pn","Wt","Śr","Cz","Pt","So"],
+        "no_weather": "Nie znaleziono działającej encji pogodowej."
+      },
+      "hr": {
+        "weekdays": ["Ned","Pon","Uto","Sri","Čet","Pet","Sub"],
+        "no_weather": "Nije pronađen nijedan funkcionalan vremenski entitet."
+      },
+      "sv": {
+        "weekdays": ["Sön","Mån","Tis","Ons","Tors","Fre","Lör"],
+        "no_weather": "Ingen fungerande väderentitet hittades."
+      }
+    } %}
+    {{ map }}
 
 trigger: !input automation_trigger
 
 action:
-  - action: weather.get_forecasts
-    target:
-      entity_id: "{{ forecast_entity }}"
-    data:
-      type: hourly
-    response_variable: weather_home_hourly
+  - choose:
+      - conditions:
+          - "{{ forecast_entity != 'unavailable' }}"
+        sequence:
+          - action: weather.get_forecasts
+            target:
+              entity_id: "{{ forecast_entity }}"
+            data:
+              type: hourly
+            response_variable: weather_home_hourly
+          - action: weather.get_forecasts
+            target:
+              entity_id: "{{ forecast_entity }}"
+            data:
+              type: daily
+            response_variable: weather_home_daily
+          - variables:
+              daily_offset: "{{ 0 if start_with_today else 1 }}"
+              moon_available: >
+                {{ false if  states('sensor.moon_phase') == 'unknown' or states('sensor.moon_phase') == 'unavailable' else true }}
+              moon_phase: >
+                {% set cond_moon = states('sensor.moon_phase') %}
+                {% if cond_moon == 'new_moon' %}
+                moon-new
+                {% elif cond_moon == 'full_moon' %}
+                moon-full
+                {% else %}
+                {{ "moon-" + cond_moon | replace("_", "-") }}
+                {%endif%}
+              sun_available: >
+                {{ false if  states('sun.sun') == 'unknown' or states('sun.sun') == 'unavailable' else true }}
 
-  - action: weather.get_forecasts
-    target:
-      entity_id: "{{ forecast_entity }}"
-    data:
-      type: daily
-    response_variable: weather_home_daily
+              severe_weather:
+                [
+                  "fog",
+                  "hail",
+                  "lightning",
+                  "lightning-rainy",
+                  "pouring",
+                  "snowy",
+                  "snowy-rainy",
+                  "windy",
+                  "windy-variant",
+                  "exceptional",
+                ]
+              severe_temp_low: 3
+              severe_wind_speed: 10
 
-  - variables:
-      daily_offset: "{{ 0 if start_with_today else 1 }}"
-      weekdays_map: >
-        {% set map = {
-          "en": ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
-          "de": ["So","Mo","Di","Mi","Do","Fr","Sa"],
-          "fr": ["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"],
-          "es": ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"],
-          'pl': ["Nd","Pn","Wt","Śr","Cz","Pt","So"],
-          'hr': ["Ned","Pon","Uto","Sri","Čet","Pet","Sub"],
-          'nl': ["Zo","Ma","Di","Wo","Do","Vr","Za"]
-        } %}
-        {{ map }}
+              day_conditions_map:
+                clear-night: "mdi:weather-night"
+                cloudy: "mdi:weather-cloudy"
+                fog: "mdi:weather-fog"
+                hail: "mdi:weather-hail"
+                lightning: "mdi:weather-lightning"
+                lightning-rainy: "mdi:weather-lightning-rainy"
+                partlycloudy: "mdi:weather-partly-cloudy"
+                pouring: "mdi:weather-pouring"
+                rainy: "mdi:weather-rainy"
+                snowy: "mdi:weather-snowy"
+                snowy-rainy: "mdi:weather-snowy-rainy"
+                sunny: "mdi:weather-sunny"
+                windy: "mdi:weather-windy"
+                windy-variant: "mdi:weather-windy-variant"
+                exceptional: "mdi:alert-circle-outline"
 
-      moon_phase: >
-        {% set cond_moon = states('sensor.moon_phase') %}
-        {% if cond_moon == 'new_moon' %}
-        moon-new
-        {% elif cond_moon == 'full_moon' %}
-        moon-full
-        {% else %}
-        {{ "moon-" + cond_moon | replace("_", "-") }}
-        {%endif%}
+              night_conditions_map:
+                clear-night: "mdi:weather-night"
+                cloudy: "mdi:weather-cloudy"
+                fog: "mdi:weather-fog"
+                hail: "mdi:weather-hail"
+                lightning: "mdi:weather-lightning"
+                lightning-rainy: "mdi:weather-lightning-rainy"
+                partlycloudy: "mdi:weather-night-partly-cloudy"
+                pouring: "mdi:weather-pouring"
+                rainy: "mdi:weather-rainy"
+                snowy: "mdi:weather-snowy"
+                snowy-rainy: "mdi:weather-snowy-rainy"
+                sunny: "mdi:weather-night"
+                windy: "mdi:weather-windy"
+                windy-variant: "mdi:weather-windy-variant"
+                exceptional: "mdi:alert-circle-outline"
 
-      temperature_unit: "{{ state_attr(forecast_entity,'temperature_unit') }}"
-      wind_speed_unit: "{{ state_attr(forecast_entity,'wind_speed_unit') }}"
-      wm_cond_now: >
-        {% set cond_now = states(forecast_entity) %}
-        {% if cond_now == 'partlycloudy' %}{% set cond_now = 'partly-cloudy' %}{% endif %}
-        {% if cond_now == 'clear-night' %}{% set cond_now = 'night' %}{% endif %}
-        {% if states('sun.sun') == 'below_horizon' %}
-            {% if cond_now == 'sunny' %} night {% elif cond_now == 'partly-cloudy' %} night-partly-cloudy {% else %} {{ cond_now }} {% endif %}
-        {% else %}
-            {{ cond_now }}
-        {% endif %}
-      wm_temp_now: >
-        {% if current_temp_sensor and current_temp_sensor != "" %}
-          {{ states(current_temp_sensor) | float | round }}
-        {% else %}
-          {{ state_attr(forecast_entity,'temperature') | round }}
-        {% endif %}
-      wm_wind_speed_now: >
-        {{ state_attr(forecast_entity,'wind_speed') | round }}
-      wm_wind_dir_now: >
-        {{ state_attr(forecast_entity,'wind_bearing') | round }}
-      wm_cond_0: >
-        {% set cond0 = weather_home_hourly[forecast_entity]['forecast'][0].condition %}
-        {% if cond0 == 'partlycloudy' %}{% set cond0 = 'partly-cloudy' %}{% endif %}
-        {% if cond0 == 'clear-night' %}{% set cond0 = 'night' %}{% endif %}
-        {% set next_setting = as_timestamp(state_attr('sun.sun', 'next_setting')) %}
-        {% set next_rising = as_timestamp(state_attr('sun.sun', 'next_rising')) %}
-        {% set cond0_time = as_timestamp(weather_home_hourly[forecast_entity]['forecast'][0].datetime) %}
-        {% if states('sun.sun') == 'above_horizon' and cond0_time > next_setting %}
-            {% if cond0 == 'sunny' %} night {% elif cond0 == 'partly-cloudy' %} night-partly-cloudy {% else %} {{ cond0 }} {% endif %}
-        {% elif states('sun.sun') == 'below_horizon' and cond0_time < next_rising %}
-            {% if cond0 == 'sunny' %} night {% elif cond0 == 'partly-cloudy' %} night-partly-cloudy {% else %} {{ cond0 }} {% endif %}    
-        {% else %}
-            {{ cond0 }}
-        {% endif %}
-      wm_temp_0: >
-        {{ weather_home_hourly[forecast_entity]['forecast'][0].temperature | round }}
-      wm_time_0: >
-        {% if time_format == "12h" %}
-          {{ as_timestamp(weather_home_hourly[forecast_entity]['forecast'][0].datetime) | timestamp_custom('%I') | int }} {{ as_timestamp(weather_home_hourly[forecast_entity]['forecast'][0].datetime) | timestamp_custom('%p') }}
-        {% else %}
-          {% set hour = as_timestamp(weather_home_hourly[forecast_entity]['forecast'][0].datetime) | timestamp_custom('%H') %}
-          {{ '%02d:00' % (hour | int) }}
-        {% endif %}
-      wm_cond_4: >
-        {% set cond4 = weather_home_daily[forecast_entity]['forecast'][daily_offset].condition %}
-        {% if cond4 == 'partlycloudy' %}{% set cond4 = 'partly-cloudy'%}{% endif %}
-        {% if cond4 == 'clear-night' %}{% set cond4 = 'night' %}{% endif %}
-        {{ cond4 }}
-      wm_temp_4: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset].temperature | round }}
-      wm_temp_4_low: >
-        {{ weather_home_daily[forecast_entity]['forecast'][daily_offset].templow | round }}
-      wm_time_4: >
-        {{ "%s" % (weekdays_map[weekday_lang][as_timestamp(weather_home_daily[forecast_entity]['forecast'][daily_offset].datetime) | timestamp_custom('%w') | int]) }}
-
-      severe_weather:
-        [
-          "fog",
-          "hail",
-          "lightning",
-          "lightning-rainy",
-          "pouring",
-          "snowy",
-          "snowy-rainy",
-          "windy",
-          "windy-variant",
-          "exceptional",
-        ]
-      severe_temp_low: 3
-      severe_wind_speed: 10
-      severe_precipitation_hour: 5
-      severe_precipitation_day: 10
-
-  - action: open_epaper_link.drawcustom
-    target:
-      device_id: !input displays
-    data:
-      background: white
-      rotate: 0
-      payload:
-        - type: icon
-          value: "{{ moon_phase }}"
-          x: 85
-          y: 1
-          size: 18
-          color: black
-        - type: text
-          value: "{{ wm_temp_0|int }}{{ temperature_unit }}"
-          font: "{{ font_file }}"
-          x: 125
-          y: 50
-          size: 18
-          anchor: mt
-          color: >
-            {{ 'black' if wm_temp_0 > severe_temp_low else 'accent' }}
-        - type: icon
-          value: >-
-            weather-{{ wm_cond_0|string }}
-          x: 108
-          y: 16
-          size: 34
-          color: >-
-            {{ 'accent' if wm_cond_0 in severe_weather else 'black'}}
-        - type: text
-          value: "{{ wm_temp_4|string }}"
-          font: "{{ font_file}}"
-          x: 122
-          y: 114
-          size: 14
-          color: >-
-            {{ 'black' if wm_temp_4 > severe_temp_low else 'accent' }}
-          anchor: rt
-        - type: text
-          value: /
-          font: "{{ font_file }}"
-          x: 125
-          y: 115
-          size: 14
-          color: black
-          anchor: mt
-        - type: text
-          value: "{{ wm_temp_4_low }}"
-          x: 128
-          y: 121
-          size: 14
-          color: "{{ 'black' if wm_temp_4_low > severe_temp_low else 'accent'}}"
-          anchor: lt
-        - type: icon
-          value: "weather-{{ wm_cond_4 }}"
-          x: 108
-          y: 81
-          size: 34
-          color: "{{ 'accent' if wm_cond_4 in severe_weather else 'black' }}"
-        - type: text
-          value: "{{ wm_time_0|upper }}"
-          font: "{{ font_file }}"
-          x: 125
-          y: 5
-          size: 12
-          color: black
-          anchor: mt
-        - type: text
-          value: >
-            {{ wm_time_4|upper }}
-          font: "{{ font_file }}"
-          x: 125
-          y: 70
-          size: 12
-          color: black
-          anchor: mt
-        - type: line
-          x_start: 105
-          x_end: 150
-          y_start: 67
-          y_end: 67
-          fill: black
-          width: 1
-        - type: text
-          value: "{{ wm_temp_now|round|int(0) }}{{ temperature_unit }}"
-          font: "{{ font_file }}"
-          x: 52
-          y: 94
-          size: 38
-          color: "{{ 'black' if wm_temp_now|round > severe_temp_low else 'accent' }}"
-          anchor: mt
-        - type: icon
-          value: "weather-{{ wm_cond_now }}"
-          x: 6
-          y: 2
-          size: 92
-          color: "{{ 'accent' if wm_cond_now in severe_weather else 'black' }}"
-        - type: icon
-          value: >-
-            {{ "%s" %
-            (["arrow-down","arrow-bottom-left","arrow-left","arrow-top-left","arrow-up","arrow-top-right","arrow-right",
-            "arrow-bottom-right","arrow-down"][(wm_wind_dir_now/45)
-            | round]) }}
-          x: 6
-          y: 129
-          size: 20
-          color: black
-        - type: text
-          value: "{{ wm_wind_speed_now|round }}{{ wind_speed_unit }}"
-          font: "{{ font_file}}"
-          x: 26
-          y: 130
-          size: 18
-          color: "{{ 'black' if wm_wind_speed_now|int < severe_wind_speed else 'accent'}}"
+          - action: open_epaper_link.drawcustom
+            target:
+              device_id: !input displays
+            data:
+              background: white
+              rotate: 0
+              payload: >
+                [
+                  {% if moon_available %}
+                    {
+                      "type": "icon",
+                      "value": "{{ moon_phase }}",
+                      "x": 85,
+                      "y": 1,
+                      "size": 18,
+                      "color": "black"
+                    },
+                  {% endif %}
+                  # Current Weather
+                  {
+                    "type": "icon",
+                    "value": "{% set condition = states(forecast_entity) %}{% set is_night = states('sun.sun') == 'below_horizon' %}{{ (night_conditions_map if is_night else day_conditions_map)[condition] | default('mdi:weather-' ~ condition) }}",
+                    "x": 6,
+                    "y": 2,
+                    "size": 92,
+                    "color": "{{ 'accent' if states(forecast_entity) in severe_weather else 'black' }}"
+                  },
+                  {
+                    "type": "text",
+                    "value": "{% if current_temp_sensor and current_temp_sensor != '' %}{{ states(current_temp_sensor) | float | round }}{% else %}{{ state_attr(forecast_entity,'temperature') | round }}{% endif %}{% if show_temp_unit%}{{ state_attr(forecast_entity,'temperature_unit') }}{% else %}°{% endif %}",
+                    "font": "{{ font_file }}",
+                    "x": 52,
+                    "y": 94,
+                    "size": 38,
+                    "color": "{{ 'black' if state_attr(forecast_entity,'temperature') | round > severe_temp_low else 'accent' }}",
+                    "anchor": "mt"
+                  },
+                  {
+                    "type": "icon",
+                    "value": "{{ "%s" % (["arrow-down","arrow-bottom-left","arrow-left","arrow-top-left","arrow-up","arrow-top-right","arrow-right", "arrow-bottom-right","arrow-down"][(state_attr(forecast_entity, 'wind_bearing')/45) | round]) }}",
+                    "x": 6,
+                    "y": 129,
+                    "size": 20,
+                    "color": "black"
+                  },
+                  {
+                    "type": "text",
+                    "value": "{{ state_attr(forecast_entity, 'wind_speed')| round }}{{ state_attr(forecast_entity, 'wind_speed_unit')}}",
+                    "font": "{{ font_file }}",
+                    "x": 26,
+                    "y": 130,
+                    "size": 18,
+                    "color": "{{ 'black' if state_attr(forecast_entity,'wind_speed') | round < severe_wind_speed else 'accent' }}",
+                  },
+                  # Next hour
+                  {
+                    "type": "text",
+                    "value": "{% if time_format == '12h' %}{{ as_timestamp(weather_home_hourly[forecast_entity]['forecast'][0].datetime) | timestamp_custom('%-I %p') }}{% else %}{{ as_timestamp(weather_home_hourly[forecast_entity]['forecast'][0].datetime) | timestamp_custom('%H:00') }}{% endif %}",
+                    "x": 125,
+                    "y": 5,
+                    "size": 12,
+                    "color": "black",
+                    "anchor": "mt"
+                  },
+                  {
+                    "type": "icon",
+                    "value": "{% set forecast_time = as_timestamp(weather_home_hourly[forecast_entity]['forecast'][0].datetime) %}{% set condition = weather_home_hourly[forecast_entity]['forecast'][0].condition %}{%if sun_available %}{% set is_night = (states('sun.sun') == 'above_horizon' and forecast_time > as_timestamp(state_attr('sun.sun', 'next_setting'))) or (states('sun.sun') == 'below_horizon' and forecast_time < as_timestamp(state_attr('sun.sun', 'next_rising'))) %}{{ (night_conditions_map if is_night else day_conditions_map)[condition] | default('mdi:weather-' ~ condition) }}{% else %}{{ day_conditions_map[condition] | default('mdi:weather-' ~ condition)}}{% endif %}",
+                    "x": 108,
+                    "y": 16,
+                    "size": 34,
+                    "color": "{{ 'accent' if weather_home_hourly[forecast_entity]['forecast'][0].condition in severe_weather else 'black' }}"
+                  },
+                  {
+                    "type": "text",
+                    "value": "{{ weather_home_hourly[forecast_entity]['forecast'][0].temperature|round }}{% if show_temp_unit%}{{ state_attr(forecast_entity,'temperature_unit') }}{% else %}°{% endif %}",
+                    "font": "{{ font_file }}",
+                    "x": 125,
+                    "y": 50,
+                    "size": 18,
+                    "color": "{{ 'black' if weather_home_hourly[forecast_entity]['forecast'][0].temperature|round > severe_temp_low else 'accent' }}",
+                    "anchor": "mt"
+                  },
+                  {
+                    "type": "line",
+                    "x_start": 105,
+                    "x_end": 150,
+                    "y_start": 67,
+                    "y_end": 67,
+                    "color": "black"
+                  },
+                  # Next Day
+                  {
+                    "type": "text",
+                    "value": "{{ language_map[weekday_lang]['weekdays'][as_timestamp(weather_home_daily[forecast_entity]['forecast'][daily_offset].datetime) | timestamp_custom('%w') | int ] | upper }}",
+                    "x": 125,
+                    "y": 70,
+                    "size": 12,
+                    "color": "black",
+                    "anchor": "mt"
+                  },
+                  {
+                    "type": "icon",
+                    "value": "{% set condition = weather_home_daily[forecast_entity]['forecast'][daily_offset].condition %}{{ day_conditions_map[condition] | default('mdi:weather-' ~ condition) }}",
+                    "x": 108,
+                    "y": 81,
+                    "size": 34,
+                    "color": "{{ 'accent' if weather_home_daily[forecast_entity]['forecast'][daily_offset].condition in severe_weather else 'black' }}"
+                  },
+                  {
+                    "type": "text",
+                    "value": "{{ weather_home_daily[forecast_entity]['forecast'][daily_offset].temperature|round }}",
+                    "font": "{{ font_file }}",
+                    "x": 122,
+                    "y": 114,
+                    "size": 14,
+                    "color": "{{ 'black' if weather_home_daily[forecast_entity]['forecast'][daily_offset].temperature|round > severe_temp_low else 'accent' }}",
+                    "anchor": "rt"
+                  },
+                  {
+                    "type": "text",
+                    "value": "/",
+                    "font": "{{ font_file }}",
+                    "x": 125,
+                    "y": 115,
+                    "size": 14,
+                    "color": "black",
+                    "anchor": "mt"
+                  },
+                  {
+                    "type": "text",
+                    "value": "{{ weather_home_daily[forecast_entity]['forecast'][daily_offset].templow|round }}",
+                    "font": "{{ font_file }}",
+                    "x": 128,
+                    "y": 121,
+                    "size": 14,
+                    "color": "{{ 'black' if weather_home_daily[forecast_entity]['forecast'][daily_offset].templow > severe_temp_low|round else 'accent' }}",
+                    "anchor": "lt"
+                  }
+                ]
+    default:
+      - action: open_epaper_link.drawcustom
+        target:
+          device_id: !input displays
+        data:
+          background: white
+          rotate: 0
+          payload: >
+            [
+              {
+              "type": "text",
+              "value": "{{ language_map[weekday_lang]['no_weather']}}",
+              "font": "{{ font_file }}",
+              "x": "50%",
+              "y": "50%",
+              "size": 18,
+              "color": "red",
+              "anchor": "mm",
+              "max_width": 150
+              }
+            ]
