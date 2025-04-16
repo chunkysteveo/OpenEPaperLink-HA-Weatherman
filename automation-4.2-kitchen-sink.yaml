@@ -1037,8 +1037,8 @@ action:
           x_end: 390
           y_end: 150
     target:
-      entity_id:
-        - open_epaper_link.000002C123456ABC
+      device_id:
+        - 1h7fdhfs8fsdjsf8jsdf8jsdf88sdhd8
 variables:
   severe_weather:
     - fog
