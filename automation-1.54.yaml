@@ -190,5 +190,5 @@ action:
             severe_wind_speed else 'red' }}
           anchor: lt        
     target:
-      entity_id:
-        - open_epaper_link.000002A123456789
+      device_id:
+        - 1h7fdhfs8fsdjsf8jsdf8jsdf88sdhd8
