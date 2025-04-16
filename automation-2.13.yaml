@@ -353,7 +353,6 @@ action:
           color: >-
             {{'red' if state_attr('sensor.weatherman_data_tag','wm_cond_now') in severe_weather else 'black' }}
     target:
-      entity_id:
-        - open_epaper_link.YOUR_TAG_MAC_ADDRESS
-        - open_epaper_link.ANOTHER_TAG_MAC_ADDRESS
+      device_id:
+        - 1h7fdhfs8fsdjsf8jsdf8jsdf88sdhd8
 mode: restart
