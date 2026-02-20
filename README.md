@@ -24,10 +24,14 @@ The script also assumes your Moon sensor is called `sensor.moon_phase`. There is
 There are breaking changes with HASS 2024.4, and you will need to change your configuration.yaml or else this will stop working!
 There are quite a few changes needed, so it might be easiest to replace all the configuration with the [new one](ha-configuration.yaml).
 
-## Tag size - 1.54", 2.9", 3.5" and 4.2"
+## Tag size - 1.54", 2.5", 2.9", 3.5" and 4.2"
 A 2.9" weather tag, which shows the current weather, and the following four hours and days ahead.
 
 <img src="20230925_143005.jpg" width="50%" alt="Epaper Tag using Weatherman data">
+
+Same as the 2.9" just adapted for a 2.5" display, adapted by [@marxo-glitch](https://github.com/marxo-glitch/):
+
+<img src="2.50_1.jpg" width="50%" alt="Epaper Tag using Weatherman data">
 
 A fully featured "kitchen sink" 4.2" tag that has lots of current weather data, the Sun rising & setting times, an additional day on the daily forecasts, and a lot more info in all the forecasts.
 
